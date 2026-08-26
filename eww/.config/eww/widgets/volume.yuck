@@ -25,4 +25,3 @@
         (label
           :class "metric-value"
           :text "${volume-value}")))))
-
