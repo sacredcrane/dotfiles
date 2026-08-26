@@ -25,6 +25,13 @@ devices="$(
       name="${line#Device $address }"
       info="$(bluetoothctl info "$address" 2>/dev/null)"
 
+      alias="$(
+        printf '%s\n' "$info" |
+          awk -F ': ' '$1 ~ /^[[:space:]]*Alias$/ { print $2; exit }'
+      )"
+
+      [ -n "$alias" ] && name="$alias"
+
       case "$info" in
       *'Paired: yes'*) paired=true ;;
       *) paired=false ;;
@@ -54,7 +61,7 @@ devices="$(
           connected: $connected
         }'
     done |
-    jq -sc 'sort_by(.connected | not, .paired | not, .name)'
+    jq -sc 'sort_by([(.connected | not), (.paired | not), .name])'
 )"
 
 [ -n "$devices" ] || devices='[]'
