@@ -43,12 +43,6 @@ window {
   margin-top: 4px;
 }
 
-.bar-center {
-  padding: 8px 0;
-  border-radius: 14px;
-  background: rgba($mantle, 0.55);
-}
-
 .bar-bottom {
   margin-bottom: 4px;
 }
@@ -105,10 +99,6 @@ window {
 
 .volume .metric-icon {
   color: $blue;
-}
-
-.brightness .metric-icon {
-  color: $yellow;
 }
 
 .network .metric-icon {
@@ -222,6 +212,7 @@ tooltip label {
 
 .power-popup,
 .calendar-popup,
+.volume-popup,
 .network-popup,
 .bluetooth-popup,
 .vpn-popup {
@@ -293,6 +284,57 @@ calendar:indeterminate {
 
 .network-popup {
   padding: 9px;
+}
+
+.volume-popup {
+  padding: 9px;
+}
+
+.volume-mute {
+  min-width: 24px;
+  min-height: 24px;
+  margin-left: 7px;
+  border-radius: 8px;
+  color: $blue;
+  font-size: 13px;
+}
+
+.volume-mute:hover {
+  background: $surface0;
+}
+
+.volume-mute.active {
+  color: $red;
+}
+
+.volume-control {
+  min-height: 32px;
+  padding: 0 7px;
+}
+
+.volume-control-icon {
+  min-width: 18px;
+  color: $blue;
+  font-size: 14px;
+}
+
+.volume-slider trough {
+  min-height: 6px;
+  border-radius: 3px;
+  background: $surface0;
+}
+
+.volume-slider trough highlight {
+  border-radius: 3px;
+  background: $blue;
+}
+
+.volume-slider trough slider {
+  min-width: 14px;
+  min-height: 14px;
+  margin: -4px;
+  border-radius: 7px;
+  background: $text;
 }
 
 .bluetooth-popup {

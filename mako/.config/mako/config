@@ -45,3 +45,8 @@ background-color=#181825fa
 border-color=#f38ba8ff
 default-timeout=0
 ignore-timeout=1
+
+[app-name=brightness-osd]
+border-color=#f9e2afff
+default-timeout=1200
+ignore-timeout=1

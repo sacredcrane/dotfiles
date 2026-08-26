@@ -10,7 +10,7 @@
     (button
       :class "metric volume"
       :tooltip {volume-data.muted ? "Muted" : "Volume ${volume-data.volume}%"}
-      :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+      :onclick "$HOME/.config/eww/scripts/popup-toggle.sh volume-popup"
       
       (box
         :orientation "v"
@@ -23,3 +23,71 @@
         (label
           :class "metric-value"
           :text "${volume-data.volume}")))))
+
+(defwidget volume-popup-content []
+  (eventbox
+    :onhoverlost "eww close volume-popup"
+
+    (box
+      :class "volume-popup"
+      :orientation "v"
+      :space-evenly false
+      :spacing 8
+
+      (box
+        :orientation "h"
+        :space-evenly false
+
+        (label
+          :class "network-title"
+          :hexpand true
+          :halign "start"
+          :text "Volume")
+
+        (label
+          :class "network-info"
+          :text "${volume-data.volume}%")
+
+        (button
+          :class {volume-data.muted ? "volume-mute active" : "volume-mute"}
+          :tooltip {volume-data.muted ? "Unmute" : "Mute"}
+          :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+
+          (label
+            :text {volume-data.muted ? "󰝟" : "󰕾"})))
+
+      (box
+        :class "network-separator")
+
+      (box
+        :class "volume-control"
+        :orientation "h"
+        :space-evenly false
+        :spacing 10
+
+        (label
+          :class "volume-control-icon"
+          :text {volume-data.muted ? "󰝟" : "󰕾"})
+
+        (scale
+          :class "volume-slider"
+          :hexpand true
+          :min 0
+          :max 100
+          :value {volume-data.volume}
+          :onchange "$HOME/.config/eww/scripts/volume-set.sh {}")))))
+
+(defwindow volume-popup
+  :monitor 0
+  :geometry (geometry
+    :x "8px"
+    :y "286px"
+    :width "220px"
+    :height "105px"
+    :anchor "right bottom")
+  :stacking "fg"
+  :exclusive false
+  :focusable false
+  :namespace "eww-volume-popup"
+
+  (volume-popup-content))
