@@ -13,8 +13,8 @@
 ;; Элемент сети в popup.
 ;;
 ;; known = сеть уже сохранена в wpa_supplicant.
-;; Неизвестные сети пока только показываем с замком.
-(defwidget wifi-network [ssid signal known id]
+;; Unknown networks use a validated BSSID when creating a saved profile.
+(defwidget wifi-network [ssid bssid signal security known id]
   (button
     :class {
       ssid == network.wifi.ssid
@@ -27,7 +27,7 @@
     :onclick {
       known
         ? "$HOME/.config/eww/scripts/wifi-connect.sh ${id}"
-        : ""
+        : "$HOME/.config/eww/scripts/wifi-connect-new.sh ${bssid}"
     }
 
     (box
@@ -64,7 +64,9 @@
             ? "●"
             : known
               ? ""
-              : "󰌾"
+              : security == "open"
+                ? "󰿆"
+                : "󰌾"
         }))))
 
 
@@ -160,7 +162,13 @@
             network.wifi.connected
               ? network.wifi.ssid
               : "Offline"
-          }))
+          })
+
+        (button
+          :class "network-refresh"
+          :tooltip "Scan Wi-Fi"
+          :onclick "$HOME/.config/eww/scripts/wifi-scan.sh"
+          "󰑐"))
 
 
       ;; Available Wi-Fi networks
@@ -179,7 +187,9 @@
           (for item in wifi-networks
             (wifi-network
               :ssid {item.ssid}
+              :bssid {item.bssid}
               :signal {item.signal}
+              :security {item.security}
               :known {item.known}
               :id {item.id})))))))
 
