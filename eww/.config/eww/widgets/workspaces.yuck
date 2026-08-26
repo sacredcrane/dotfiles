@@ -1,6 +1,6 @@
-(defpoll workspaces-data
-  :interval "500ms"
-  `niri msg --json workspaces | jq -c '[.[] | {idx: .idx, active: .is_active}]'`)
+(deflisten workspaces-data
+  :initial "[]"
+  "$HOME/.config/eww/scripts/workspaces.sh")
 
 (defwidget workspaces[]
   (box

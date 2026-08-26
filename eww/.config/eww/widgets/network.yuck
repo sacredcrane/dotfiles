@@ -14,7 +14,7 @@
 ;;
 ;; known = сеть уже сохранена в wpa_supplicant.
 ;; Неизвестные сети пока только показываем с замком.
-(defwidget wifi-network [ssid signal known]
+(defwidget wifi-network [ssid signal known id]
   (button
     :class {
       ssid == network.wifi.ssid
@@ -26,7 +26,7 @@
 
     :onclick {
       known
-        ? "$HOME/.config/eww/scripts/wifi-connect.sh '${ssid}'"
+        ? "$HOME/.config/eww/scripts/wifi-connect.sh ${id}"
         : ""
     }
 
@@ -180,7 +180,8 @@
             (wifi-network
               :ssid {item.ssid}
               :signal {item.signal}
-              :known {item.known})))))))
+              :known {item.known}
+              :id {item.id})))))))
 
 (defwindow network-popup
   :monitor 0

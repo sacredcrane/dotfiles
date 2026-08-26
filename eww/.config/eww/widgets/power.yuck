@@ -1,6 +1,6 @@
-(defpoll power-profile
-  :interval "2s"
-  `tlpctl get`)
+(deflisten power-profile
+  :initial "balanced"
+  "$HOME/.config/eww/scripts/power-profile.sh")
 
 
 (defwidget power-profile-button [profile label]
@@ -49,4 +49,3 @@
   :focusable false
 
   (power-popup-content))
-

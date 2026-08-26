@@ -50,6 +50,7 @@ wpa_cli -i "$iface" scan_results 2>/dev/null |
       known_json=true
     else
       known_json=false
+      id=-1
     fi
 
     jq -cn \
@@ -57,11 +58,13 @@ wpa_cli -i "$iface" scan_results 2>/dev/null |
       --argjson signal "$signal" \
       --arg flags "$flags" \
       --argjson known "$known_json" \
+      --argjson id "$id" \
       '{
                 ssid: $ssid,
                 signal: $signal,
                 flags: $flags,
-                known: $known
+                known: $known,
+                id: $id
             }'
   done |
   jq -s '.'

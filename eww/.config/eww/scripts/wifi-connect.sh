@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ssid="$1"
+id="$1"
 
 iface="$(
   iw dev 2>/dev/null |
@@ -8,20 +8,14 @@ iface="$(
 )"
 
 [ -n "$iface" ] || exit 1
-[ -n "$ssid" ] || exit 1
 
-id="$(
-  wpa_cli -i "$iface" list_networks 2>/dev/null |
-    tail -n +2 |
-    awk -F '\t' -v ssid="$ssid" '
-            $2 == ssid {
-                print $1
-                exit
-            }
-        '
-)"
+case "$id" in
+'' | *[!0-9]*) exit 2 ;;
+esac
 
-[ -n "$id" ] || exit 2
+wpa_cli -i "$iface" list_networks 2>/dev/null |
+  awk -F '\t' -v id="$id" 'NR > 1 && $1 == id { found=1 } END { exit !found }' ||
+  exit 2
 
 wpa_cli -i "$iface" enable_network "$id" >/dev/null &&
   wpa_cli -i "$iface" select_network "$id" >/dev/null
