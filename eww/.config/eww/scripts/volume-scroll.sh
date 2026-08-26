@@ -7,4 +7,10 @@ up)
 down)
   wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- >/dev/null
   ;;
+toggle)
+  wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle >/dev/null
+  ;;
+*) exit 2 ;;
 esac
+
+exec "$HOME/.config/eww/scripts/volume-notify.sh"

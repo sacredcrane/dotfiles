@@ -51,7 +51,7 @@
         (button
           :class {volume-data.muted ? "volume-mute active" : "volume-mute"}
           :tooltip {volume-data.muted ? "Unmute" : "Mute"}
-          :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+          :onclick "$HOME/.config/eww/scripts/volume-scroll.sh toggle"
 
           (label
             :text {volume-data.muted ? "󰝟" : "󰕾"})))

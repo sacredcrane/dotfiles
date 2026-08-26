@@ -50,3 +50,8 @@ ignore-timeout=1
 border-color=#f9e2afff
 default-timeout=1200
 ignore-timeout=1
+
+[app-name=volume-osd]
+border-color=#89b4faff
+default-timeout=1200
+ignore-timeout=1

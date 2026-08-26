@@ -9,3 +9,5 @@ if ! awk -v value="$value" 'BEGIN {
 fi
 
 wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ "${value}%" >/dev/null
+
+exec "$HOME/.config/eww/scripts/volume-notify.sh"
