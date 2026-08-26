@@ -1,0 +1,199 @@
+(defpoll network
+  :interval "5s"
+  :initial "{\"wifi\":{\"connected\":false,\"signal\":0,\"ssid\":\"\",\"ip\":\"\",\"interface\":\"\"},\"ethernet\":{\"connected\":false,\"ip\":\"\",\"interface\":\"\"}}"
+  "$HOME/.config/eww/scripts/network-status.sh")
+
+
+(defpoll wifi-networks
+  :interval "5s"
+  :initial "[]"
+  "$HOME/.config/eww/scripts/wifi-networks.sh")
+
+
+;; Элемент сети в popup.
+;;
+;; known = сеть уже сохранена в wpa_supplicant.
+;; Неизвестные сети пока только показываем с замком.
+(defwidget wifi-network [ssid signal known]
+  (button
+    :class {
+      ssid == network.wifi.ssid
+        ? "wifi-network active"
+        : known
+          ? "wifi-network"
+          : "wifi-network unknown"
+    }
+
+    :onclick {
+      known
+        ? "$HOME/.config/eww/scripts/wifi-connect.sh '${ssid}'"
+        : ""
+    }
+
+    (box
+      :orientation "h"
+      :space-evenly false
+      :spacing 8
+
+      ;; Сила сигнала только иконкой.
+      (label
+        :class "wifi-network-icon"
+        :text {
+          signal >= -55
+            ? "󰤨"
+            : signal >= -70
+              ? "󰤥"
+              : signal >= -80
+                ? "󰤢"
+                : "󰤟"
+        })
+
+      ;; SSID
+      (label
+        :class "wifi-network-name"
+        :hexpand true
+        :halign "start"
+        :limit-width 20
+        :text ssid)
+
+      ;; Текущая сеть / неизвестная сеть
+      (label
+        :class "wifi-network-state"
+        :text {
+          ssid == network.wifi.ssid
+            ? "●"
+            : known
+              ? ""
+              : "󰌾"
+        }))))
+
+
+;; Иконка сети непосредственно в баре.
+;;
+;; Ethernet имеет приоритет над Wi-Fi.
+;; Никаких -48 dBm под иконкой больше нет.
+(defwidget network []
+  (button
+    :class "metric network"
+
+    :tooltip {
+      network.ethernet.connected
+        ? "Ethernet"
+        : network.wifi.connected
+          ? network.wifi.ssid
+          : "Disconnected"
+    }
+
+    :onclick "sh -c '$HOME/.config/eww/scripts/wifi-scan.sh & eww open --toggle network-popup --duration 20s'"
+
+    (label
+      :class "metric-icon"
+      :text {
+        network.ethernet.connected
+          ? "󰈀"
+          : network.wifi.connected
+            ? network.wifi.signal >= -55
+              ? "󰤨"
+              : network.wifi.signal >= -70
+                ? "󰤥"
+                : network.wifi.signal >= -80
+                  ? "󰤢"
+                  : "󰤟"
+            : "󰤭"
+      })))
+
+
+(defwidget network-popup-content []
+  (eventbox
+    :onhoverlost "eww close network-popup"
+
+    (box
+      :class "network-popup"
+      :orientation "v"
+      :space-evenly false
+      :spacing 7
+
+      ;; Ethernet status
+      (box
+        :orientation "h"
+        :space-evenly false
+
+        (label
+          :class "network-title"
+          :hexpand true
+          :halign "start"
+          :text "Ethernet")
+
+        (label
+          :class {
+            network.ethernet.connected
+              ? "network-state connected"
+              : "network-state"
+          }
+
+          :text {
+            network.ethernet.connected
+              ? "Connected"
+              : "Offline"
+          }))
+
+
+      ;; Separator
+      (box
+        :class "network-separator")
+
+
+      ;; Wi-Fi header
+      (box
+        :orientation "h"
+        :space-evenly false
+
+        (label
+          :class "network-title"
+          :hexpand true
+          :halign "start"
+          :text "Wi-Fi")
+
+        (label
+          :class "network-info"
+          :text {
+            network.wifi.connected
+              ? network.wifi.ssid
+              : "Offline"
+          }))
+
+
+      ;; Available Wi-Fi networks
+      (scroll
+        :class "wifi-networks-scroll"
+        :vscroll true
+        :hscroll false
+        :vexpand true
+
+        (box
+          :class "wifi-networks"
+          :orientation "v"
+          :space-evenly false
+          :spacing 2
+
+          (for item in wifi-networks
+            (wifi-network
+              :ssid {item.ssid}
+              :signal {item.signal}
+              :known {item.known})))))))
+
+(defwindow network-popup
+  :monitor 0
+
+  :geometry (geometry
+    :x "8px"
+    :y "190px"
+    :width "220px"
+    :height "250px"
+    :anchor "right bottom")
+
+  :stacking "fg"
+  :exclusive false
+  :focusable false
+
+  (network-popup-content))

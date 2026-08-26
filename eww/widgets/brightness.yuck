@@ -1,0 +1,18 @@
+(defpoll brightness-value
+  :interval "1s"
+  `brightnessctl -m | cut -d, -f4 | tr -d '%'`)
+
+(defwidget brightness[]
+  (eventbox
+    :onscroll "$HOME/.config/eww/scripts/brightness-scroll.sh"
+    (box 
+      :class "metric brightness"
+      :orientation "v"
+      :space-evenly false
+      
+      (label
+        :class "metric-icon"
+        :text "󰃠")
+      (label
+        :class "metric-value"
+        :text "${brightness-value}"))))

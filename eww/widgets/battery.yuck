@@ -1,0 +1,21 @@
+(defpoll battery-data
+  :interval "20s"
+  "$HOME/.config/eww/scripts/battery-status.sh")
+
+(defwidget battery []
+  (button
+    :class "metric battery ${battery-data.class}"
+    :tooltip "${battery-data.status} · ${battery-data.capacity}%"
+    :onclick "eww open --toggle power-popup --duration 20s"
+
+    (box
+      :orientation "v"
+      :space-evenly false
+
+      (label
+        :class "metric-icon"
+        :text "${battery-data.icon}")
+
+      (label
+        :class "metric-value"
+        :text "${battery-data.capacity}"))))

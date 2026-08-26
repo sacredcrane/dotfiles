@@ -1,0 +1,11 @@
+(include "./widgets/network.yuck")
+(include "./widgets/workspaces.yuck")
+(include "./widgets/volume.yuck")
+(include "./widgets/brightness.yuck")
+(include "./widgets/battery.yuck")
+(include "./widgets/calendar.yuck")
+(include "./widgets/clock.yuck")
+(include "./widgets/layout.yuck")
+(include "./widgets/power.yuck")
+
+(include "./widgets/bar.yuck")

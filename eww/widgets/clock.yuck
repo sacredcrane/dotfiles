@@ -1,0 +1,29 @@
+(defpoll clock-hours
+  :interval "5s"
+  `date '+%H'`)
+
+(defpoll clock-minutes
+  :interval "5s"
+  `date '+%M'`)
+
+(defpoll clock-date
+  :interval "30s"
+  `date '+%A, %d %B'`)
+
+(defwidget clock []
+  (button
+    :class "clock"
+    :onclick "eww open --toggle calendar-popup --duration 30s"
+
+    (box
+      :orientation "v"
+      :space-evenly false
+      :tooltip "${clock-date}"
+
+      (label
+        :class "clock-hours"
+        :text "${clock-hours}")
+
+      (label
+        :class "clock-minutes"
+        :text "${clock-minutes}"))))

@@ -1,0 +1,12 @@
+(deflisten keyboard-layout
+  :initial "??"
+  "$HOME/.config/eww/scripts/keyboard-layout.sh")
+
+(defwidget keyboard-layout []
+  (button
+    :class "metric keyboard-layout"
+    :tooltip "Switch keyboard layout"
+    :onclick "niri msg action switch-layout next"
+    (label
+      :class "layout-value"
+      :text "${keyboard-layout}")))

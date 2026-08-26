@@ -1,0 +1,17 @@
+(defpoll workspaces-data
+  :interval "500ms"
+  `niri msg --json workspaces | jq -c '[.[] | {idx: .idx, active: .is_active}]'`)
+
+(defwidget workspaces[]
+  (box
+    :class "workspaces"
+    :orientation "v"
+    :space-evenly false
+    :spacing 6
+    
+    (for ws in workspaces-data
+      (button
+        :class {ws.active ? "workspace active" : "workspace"}
+        :onclick `niri msg action focus-workspace ${ws.idx}`
+        "${ws.idx}"))))
+

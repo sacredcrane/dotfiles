@@ -1,0 +1,53 @@
+(defpoll power-profile
+  :interval "2s"
+  `tlpctl get`)
+
+
+(defwidget power-profile-button [profile label]
+  (button
+    :class {power-profile == profile
+      ? "power-profile active"
+      : "power-profile"}
+    :onclick "tlpctl set ${profile}"
+    (label
+      :text label)))
+
+
+(defwidget power-popup-content []
+  (eventbox
+    :onhoverlost "eww close power-popup"
+
+    (box
+      :class "power-popup"
+      :orientation "v"
+      :space-evenly false
+      :spacing 3
+
+      (power-profile-button
+        :profile "performance"
+        :label "Performance")
+
+      (power-profile-button
+        :profile "balanced"
+        :label "Balanced")
+
+      (power-profile-button
+        :profile "power-saver"
+        :label "Power saver"))))
+
+
+(defwindow power-popup
+  :monitor 0
+  :geometry (geometry
+    :x "8px"
+    :y "105px"
+    :width "155px"
+    :height "95px"
+    :anchor "right bottom")
+  :stacking "fg"
+  :exclusive false
+  :focusable false
+
+  (power-popup-content))
+
+

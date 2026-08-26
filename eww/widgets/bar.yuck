@@ -1,0 +1,50 @@
+(defwidget bar []
+  (centerbox
+    :class "bar"
+    :orientation "v"
+
+    (box
+      :class "bar-top"
+      :orientation "v"
+      :valign "start"
+      :space-evenly false
+      (workspaces))
+
+    (box
+      :class "bar-center"
+      :orientation "v"
+      :valign "center"
+      :space-evenly false
+      :spacing 16
+
+      (volume)
+      (brightness))
+
+    (box
+      :class "bar-bottom"
+      :orientation "v"
+      :valign "end"
+      :space-evenly false
+      :spacing 6
+      
+      (network)
+      (keyboard-layout)
+      (battery)
+      (clock))))
+
+(defwindow sidebar
+  :monitor 0
+  :geometry
+    (geometry
+      :x "6px"
+      :y "0px"
+      :width "56px"
+      :height "90%"
+      :anchor "right center")
+  :exclusive true
+  :stacking "fg"
+  :focusable false
+
+  :namespace "eww-sidebar"
+  
+  (bar))

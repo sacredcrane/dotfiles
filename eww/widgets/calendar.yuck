@@ -1,0 +1,47 @@
+(defpoll calendar-day
+  :interval "60s"
+  :initial "1"
+  "date '+%d'")
+
+(defpoll calendar-month
+  :interval "60s"
+  :initial "1"
+  "date '+%m'")
+
+(defpoll calendar-year
+  :interval "60s"
+  :initial "2026"
+  "date '+%Y'")
+
+
+(defwidget calendar-content []
+  (eventbox
+    :onhoverlost "eww close calendar-popup"
+
+    (box
+      :class "calendar-popup"
+
+      (calendar
+        :day calendar-day
+        :month calendar-month
+        :year calendar-year
+        :show-details false
+        :show-heading true
+        :show-day-names true
+        :show-week-numbers false))))
+
+
+(defwindow calendar-popup
+  :monitor 0
+  :geometry (geometry
+    :x "8px"
+    :y "12px"
+    :width "260px"
+    :height "170px"
+    :anchor "right bottom")
+
+  :stacking "fg"
+  :exclusive false
+  :focusable false
+
+  (calendar-content))

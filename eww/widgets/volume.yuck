@@ -1,0 +1,28 @@
+(defpoll volume-value
+  :interval "1s"
+  `wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf "%d", $2 * 100}'`)
+
+(defpoll volume-muted
+  :interval "1s"
+  `wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo false || echo true`)
+
+(defwidget volume[]
+  (eventbox
+    :onscroll "$HOME/.config/eww/scripts/volume-scroll {}"
+    
+    (button
+      :class "metric volume"
+      :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+      
+      (box
+        :orientation "v"
+        :space-evenly false
+        
+        (label
+          :class "metric-icon"
+          :text {volume-muted ? "󰕾" : "󰝟"})
+
+        (label
+          :class "metric-value"
+          :text "${volume-value}")))))
+

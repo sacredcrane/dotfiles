@@ -1,0 +1,572 @@
+// =========================
+// Catppuccin Mocha palette
+// =========================
+
+$rosewater: #f5e0dc;
+$flamingo:  #f2cdcd;
+$pink:      #f5c2e7;
+$mauve:     #cba6f7;
+$red:       #f38ba8;
+$maroon:    #eba0ac;
+$peach:     #fab387;
+$yellow:    #f9e2af;
+$green:     #a6e3a1;
+$teal:      #94e2d5;
+$sky:       #89dceb;
+$sapphire:  #74c7ec;
+$blue:      #89b4fa;
+$lavender:  #b4befe;
+
+$text:      #cdd6f4;
+$subtext1:  #bac2de;
+$subtext0:  #a6adc8;
+
+$overlay2:  #9399b2;
+$overlay1:  #7f849c;
+$overlay0:  #6c7086;
+
+$surface2:  #585b70;
+$surface1:  #45475a;
+$surface0:  #313244;
+
+$base:      #1e1e2e;
+$mantle:    #181825;
+$crust:     #11111b;
+
+
+// =========================
+// Global
+// =========================
+
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font Mono";
+}
+
+window {
+  background: transparent;
+}
+
+
+// =========================
+// Main sidebar
+// =========================
+
+.bar {
+  background: rgba(30, 30, 46, 0.96);
+
+  border: 1px solid $surface0;
+  border-radius: 18px;
+
+  padding: 10px 6px;
+}
+
+.bar-top {
+  margin-top: 4px;
+}
+
+.bar-center {
+}
+
+.bar-bottom {
+  margin-bottom: 4px;
+}
+
+
+// =========================
+// Workspaces
+// =========================
+
+.workspaces {
+  margin-top: 2px;
+}
+
+.workspace {
+  min-width: 32px;
+  min-height: 32px;
+
+  border-radius: 16px;
+
+  color: $overlay1;
+  background: transparent;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  transition: 150ms;
+}
+
+.workspace:hover {
+  color: $text;
+  background: $surface0;
+}
+
+.workspace.active {
+  color: $base;
+  background: $blue;
+
+  font-weight: 700;
+}
+
+
+// =========================
+// Generic metrics
+// volume / brightness / battery
+// =========================
+
+.metric {
+  min-width: 36px;
+
+  padding: 5px 0;
+
+  border-radius: 12px;
+
+  color: $subtext1;
+  background: transparent;
+
+  transition: 150ms;
+}
+
+.metric:hover {
+  background: $surface0;
+}
+
+.metric-icon {
+  color: $blue;
+
+  font-size: 17px;
+}
+
+.metric-value {
+  margin-top: 3px;
+
+  color: $overlay1;
+
+  font-size: 9px;
+  font-weight: 500;
+}
+
+
+// =========================
+// Volume
+// =========================
+
+.volume {
+}
+
+.volume .metric-icon {
+  color: $blue;
+}
+
+
+// =========================
+// Brightness
+// =========================
+
+.brightness {
+}
+
+.brightness .metric-icon {
+  color: $yellow;
+}
+
+
+// =========================
+// Battery
+// =========================
+
+.battery .metric-icon {
+  font-size: 24px;
+}
+.battery .metric-value {
+  margin-top: -2px;
+}
+
+.battery.good .metric-icon {
+  color: $green;
+}
+
+.battery.medium .metric-icon {
+  color: $yellow;
+}
+
+.battery.low .metric-icon {
+  color: $red;
+}
+
+.battery.charging .metric-icon {
+  color: $teal;
+}
+
+.layout-value {
+  color: $subtext1;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.keyboard-layout {
+  padding: 3px 0;
+}
+
+.keyboard-layout:hover .layout-value {
+  color: $blue;
+}
+
+
+// =========================
+// Clock
+// =========================
+
+.clock {
+  margin-bottom: 2px;
+}
+
+.clock-hour {
+  color: $text;
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.clock-minute {
+  color: $lavender;
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+
+// =========================
+// Tooltips
+// =========================
+
+tooltip {
+  background: $mantle;
+
+  border: 1px solid $surface0;
+  border-radius: 10px;
+
+  color: $text;
+}
+
+tooltip label {
+  padding: 6px 8px;
+
+  color: $text;
+
+  font-size: 11px;
+}
+
+
+// =========================
+// Generic button behaviour
+// =========================
+
+button {
+  transition: 150ms;
+}
+
+button:active {
+  opacity: 0.75;
+}
+
+.power-popup {
+  background: rgba(30, 30, 46, 0.97);
+  border: 1px solid $surface0;
+  border-radius: 12px;
+  padding: 7px;
+}
+
+.power-profile {
+  min-height: 24px;
+  padding: 0 6px;
+  border-radius: 8px;
+  color: $subtext1;
+  font-size: 10px;
+}
+
+.power-profile:hover {
+  background: $surface0;
+  color: $text;
+}
+
+.power-profile.active {
+  background: $surface1;
+  color: $blue;
+  font-weight: 700;
+}
+
+.calendar-popup {
+  background: rgba(30, 30, 46, 0.97);
+  border: 1px solid $surface0;
+  border-radius: 14px;
+  padding: 8px;
+}
+
+calendar {
+  background: transparent;
+  color: $text;
+  font-size: 11px;
+}
+
+calendar.header {
+  color: $text;
+  font-weight: 700;
+}
+
+calendar.button {
+  color: $overlay1;
+}
+
+calendar.button:hover {
+  color: $blue;
+}
+
+calendar.highlight {
+  color: $overlay1;
+  font-weight: 600;
+}
+
+calendar:selected {
+  background: $blue;
+  color: $base;
+  border-radius: 6px;
+}
+
+calendar:indeterminate {
+  color: $surface2;
+}
+
+.network .metric-icon {
+  color: $sapphire;
+}
+
+.network-popup {
+  background: rgba(30, 30, 46, 0.97);
+  border: 1px solid $surface0;
+  border-radius: 12px;
+  padding: 9px;
+}
+
+.network-title {
+  color: $text;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.network-info,
+.network-state {
+  color: $overlay1;
+  font-size: 9px;
+}
+
+.network-state.connected {
+  color: $green;
+}
+
+.network-separator {
+  min-height: 1px;
+  background: $surface0;
+  margin: 2px 0;
+}
+
+.wifi-network {
+  min-height: 30px;
+  padding: 0 7px;
+  border-radius: 8px;
+  color: $subtext1;
+}
+
+.wifi-network:hover {
+  background: $surface0;
+  color: $text;
+}
+
+.wifi-network.active {
+  background: $surface1;
+  color: $blue;
+}
+
+.wifi-network.unknown {
+  color: $overlay0;
+}
+
+.wifi-network-icon {
+  min-width: 18px;
+  color: $sapphire;
+  font-size: 13px;
+}
+
+.wifi-network-name {
+  font-size: 10px;
+}
+
+.wifi-network-state {
+  color: $overlay1;
+  font-size: 9px;
+}
+
+.wifi-network.active .wifi-network-state {
+  color: $green;
+}
+
+.network .metric-icon {
+  color: $sapphire;
+}
+
+.network-popup {
+  background: rgba(30, 30, 46, 0.97);
+  border: 1px solid $surface0;
+  border-radius: 12px;
+  padding: 9px;
+}
+
+.network-title {
+  color: $text;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.network-info,
+.network-state {
+  color: $overlay1;
+  font-size: 9px;
+}
+
+.network-state.connected {
+  color: $green;
+}
+
+.network-separator {
+  min-height: 1px;
+  background: $surface0;
+  margin: 2px 0;
+}
+
+.wifi-network {
+  min-height: 30px;
+  padding: 0 7px;
+  border-radius: 8px;
+  color: $subtext1;
+}
+
+.wifi-network:hover {
+  background: $surface0;
+  color: $text;
+}
+
+.wifi-network.active {
+  background: $surface1;
+  color: $blue;
+}
+
+.wifi-network.unknown {
+  color: $overlay0;
+}
+
+.wifi-network-icon {
+  min-width: 18px;
+  color: $sapphire;
+  font-size: 13px;
+}
+
+.wifi-network-name {.network .metric-icon {
+  color: $sapphire;
+}
+
+.network-popup {
+  background: rgba(30, 30, 46, 0.97);
+  border: 1px solid $surface0;
+  border-radius: 12px;
+  padding: 9px;
+}
+
+.network-title {
+  color: $text;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.network-info,
+.network-state {
+  color: $overlay1;
+  font-size: 9px;
+}
+
+.network-state.connected {
+  color: $green;
+}
+
+.network-separator {
+  min-height: 1px;
+  background: $surface0;
+  margin: 2px 0;
+}
+
+.wifi-network {
+  min-height: 30px;
+  padding: 0 7px;
+  border-radius: 8px;
+  color: $subtext1;
+}
+
+.wifi-network:hover {
+  background: $surface0;
+  color: $text;
+}
+
+.wifi-network.active {
+  background: $surface1;
+  color: $blue;
+}
+
+.wifi-network.unknown {
+  color: $overlay0;
+}
+
+.wifi-network-icon {
+  min-width: 18px;
+  color: $sapphire;
+  font-size: 13px;
+}
+
+.wifi-network-name {
+  font-size: 10px;
+}
+
+.wifi-network-state {
+  color: $overlay1;
+  font-size: 9px;
+}
+
+.wifi-network.active .wifi-network-state {
+  color: $green;
+}
+  font-size: 10px;
+}
+
+.wifi-network-state {
+  color: $overlay1;
+  font-size: 9px;
+}
+
+.wifi-network.active .wifi-network-state {
+  color: $green;
+}
+
+
+.wifi-networks-scroll scrollbar {
+  background: transparent;
+}
+
+.wifi-networks-scroll scrollbar slider {
+  min-width: 4px;
+  min-height: 24px;
+  border-radius: 4px;
+  background: $surface1;
+}
+
+.wifi-networks-scroll scrollbar slider:hover {
+  background: $overlay0;
+}
