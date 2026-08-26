@@ -6,10 +6,13 @@ lock_file="$runtime_dir/brightness-osd-$(id -u).lock"
 
 case "$1" in
 up)
-  brightnessctl --class=backlight set +6% >/dev/null
+  # Void's acpid handler applies 5%; this adds the remaining percentage point.
+  sleep 0.05
+  brightnessctl --class=backlight set +1% >/dev/null
   ;;
 down)
-  brightnessctl --class=backlight set 6%- >/dev/null
+  sleep 0.05
+  brightnessctl --class=backlight set 1%- >/dev/null
   ;;
 *) exit 2 ;;
 esac
