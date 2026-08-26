@@ -13,6 +13,7 @@ desktop. The status sidebar is built with Eww and POSIX shell scripts.
 - `mako`: notification daemon theme
 - `niri`: compositor configuration and session startup
 - `qt`: Qt 5/6 Catppuccin theme through Kvantum
+- `swaylock`: lock screen appearance
 - `yazi`: terminal file manager and Catppuccin flavor
 - `zellij`: terminal workspace configuration and theme
 
@@ -35,7 +36,7 @@ family name `JetBrainsMono Nerd Font Mono`.
 From the repository root, create the configuration links:
 
 ```sh
-stow --target="$HOME" applications eww foot fuzzel gtk mako niri qt yazi zellij
+stow --target="$HOME" applications eww foot fuzzel gtk mako niri qt swaylock yazi zellij
 install-app-themes
 install-kvantum-theme
 ya pkg install
@@ -45,7 +46,7 @@ apply-gtk-theme
 Remove them without deleting repository files:
 
 ```sh
-stow --delete --target="$HOME" applications eww foot fuzzel gtk mako niri qt yazi zellij
+stow --delete --target="$HOME" applications eww foot fuzzel gtk mako niri qt swaylock yazi zellij
 ```
 
 Existing files at the target paths must be moved or imported before Stow can
