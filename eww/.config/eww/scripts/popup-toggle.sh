@@ -20,6 +20,7 @@ done
 
 case "$target" in
 network-popup) "$HOME/.config/eww/scripts/wifi-scan.sh" & ;;
+bluetooth-popup) "$HOME/.config/eww/scripts/bluetooth-action.sh" scan & ;;
 esac
 
 eww open "$target"

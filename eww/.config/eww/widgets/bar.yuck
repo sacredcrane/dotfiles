@@ -28,6 +28,7 @@
       :spacing 6
       
       (network)
+      (bluetooth)
       (keyboard-layout)
       (battery)
       (clock))))

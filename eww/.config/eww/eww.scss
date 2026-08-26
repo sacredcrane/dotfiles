@@ -116,6 +116,14 @@ window {
   color: $sapphire;
 }
 
+.bluetooth .metric-icon {
+  color: $blue;
+}
+
+.bluetooth.off .metric-icon {
+  color: $overlay0;
+}
+
 .battery .metric-icon {
   font-size: 24px;
 }
@@ -207,7 +215,8 @@ tooltip label {
 
 .power-popup,
 .calendar-popup,
-.network-popup {
+.network-popup,
+.bluetooth-popup {
   border: 1px solid $surface1;
   border-radius: 14px;
   background: rgba($base, 0.98);
@@ -277,6 +286,80 @@ calendar:indeterminate {
 
 .network-popup {
   padding: 9px;
+}
+
+.bluetooth-popup {
+  padding: 9px;
+}
+
+.connectivity-title {
+  color: $text;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.connectivity-action,
+.connectivity-toggle {
+  min-width: 24px;
+  min-height: 24px;
+  margin-left: 4px;
+  border-radius: 8px;
+  color: $overlay1;
+}
+
+.connectivity-action:hover,
+.connectivity-toggle:hover {
+  background: $surface0;
+  color: $text;
+}
+
+.connectivity-toggle.active {
+  color: $green;
+}
+
+.connectivity-empty {
+  padding: 18px 4px;
+  color: $overlay1;
+  font-size: 10px;
+}
+
+.bluetooth-device {
+  min-height: 32px;
+  border-radius: 8px;
+  color: $subtext1;
+}
+
+.bluetooth-device:hover {
+  background: $surface0;
+}
+
+.bluetooth-device.connected {
+  background: $surface1;
+  color: $text;
+}
+
+.bluetooth-device-main {
+  padding: 0 7px;
+}
+
+.bluetooth-device-icon {
+  min-width: 18px;
+  color: $blue;
+  font-size: 13px;
+}
+
+.bluetooth-device-name {
+  font-size: 10px;
+}
+
+.bluetooth-remove {
+  min-width: 26px;
+  color: $overlay0;
+  font-size: 11px;
+}
+
+.bluetooth-remove:hover {
+  color: $red;
 }
 
 .network-title {

@@ -1,0 +1,140 @@
+(defpoll bluetooth-data
+  :interval "3s"
+  :initial "{\"powered\":false,\"discovering\":false,\"connected\":0,\"devices\":[]}"
+  "$HOME/.config/eww/scripts/bluetooth-status.sh")
+
+(defwidget bluetooth-device [address name paired connected]
+  (box
+    :class {connected ? "bluetooth-device connected" : "bluetooth-device"}
+    :orientation "h"
+    :space-evenly false
+
+    (button
+      :class "bluetooth-device-main"
+      :hexpand true
+      :onclick {
+        connected
+          ? "$HOME/.config/eww/scripts/bluetooth-action.sh disconnect ${address}"
+          : paired
+            ? "$HOME/.config/eww/scripts/bluetooth-action.sh connect ${address}"
+            : "$HOME/.config/eww/scripts/bluetooth-action.sh pair ${address}"
+      }
+
+      (box
+        :orientation "h"
+        :space-evenly false
+        :spacing 7
+
+        (label
+          :class "bluetooth-device-icon"
+          :text {connected ? "󰂱" : paired ? "󰂯" : "󰂲"})
+
+        (label
+          :class "bluetooth-device-name"
+          :halign "start"
+          :limit-width 20
+          :text name)))
+
+    (button
+      :class "bluetooth-remove"
+      :visible paired
+      :tooltip "Remove device"
+      :onclick "$HOME/.config/eww/scripts/bluetooth-action.sh remove ${address}"
+      "󰆴")))
+
+(defwidget bluetooth []
+  (button
+    :class {bluetooth-data.powered ? "metric bluetooth" : "metric bluetooth off"}
+    :tooltip {
+      bluetooth-data.powered
+        ? bluetooth-data.connected > 0
+          ? "Bluetooth · ${bluetooth-data.connected} connected"
+          : "Bluetooth on"
+        : "Bluetooth off"
+    }
+    :onclick "$HOME/.config/eww/scripts/popup-toggle.sh bluetooth-popup"
+
+    (label
+      :class "metric-icon"
+      :text {
+        bluetooth-data.powered
+          ? bluetooth-data.connected > 0 ? "󰂱" : "󰂯"
+          : "󰂲"
+      })))
+
+(defwidget bluetooth-popup-content []
+  (eventbox
+    :onhoverlost "eww close bluetooth-popup"
+
+    (box
+      :class "bluetooth-popup"
+      :orientation "v"
+      :space-evenly false
+      :spacing 7
+
+      (box
+        :orientation "h"
+        :space-evenly false
+
+        (label
+          :class "connectivity-title"
+          :hexpand true
+          :halign "start"
+          :text "Bluetooth")
+
+        (button
+          :class "connectivity-action"
+          :tooltip "Scan"
+          :onclick "$HOME/.config/eww/scripts/bluetooth-action.sh scan"
+          :visible {bluetooth-data.powered}
+          "󰑐")
+
+        (button
+          :class {bluetooth-data.powered ? "connectivity-toggle active" : "connectivity-toggle"}
+          :tooltip "Toggle Bluetooth"
+          :onclick "$HOME/.config/eww/scripts/bluetooth-action.sh power-toggle"
+          "󰐥"))
+
+      (label
+        :class "connectivity-empty"
+        :visible {!bluetooth-data.powered}
+        :text "Adapter is powered off")
+
+      (label
+        :class "connectivity-empty"
+        :visible {bluetooth-data.powered && bluetooth-data.devices == []}
+        :text {bluetooth-data.discovering ? "Scanning…" : "No devices found"})
+
+      (scroll
+        :class "connectivity-scroll"
+        :vscroll true
+        :hscroll false
+        :vexpand true
+        :visible {bluetooth-data.powered}
+
+        (box
+          :orientation "v"
+          :space-evenly false
+          :spacing 2
+
+          (for device in {bluetooth-data.devices}
+            (bluetooth-device
+              :address {device.address}
+              :name {device.name}
+              :paired {device.paired}
+              :connected {device.connected})))))))
+
+(defwindow bluetooth-popup
+  :monitor 0
+  :geometry (geometry
+    :x "70px"
+    :y "155px"
+    :width "240px"
+    :height "300px"
+    :anchor "right bottom")
+  :stacking "fg"
+  :exclusive false
+  :focusable false
+  :namespace "eww-bluetooth-popup"
+
+  (bluetooth-popup-content))
