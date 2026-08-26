@@ -1,0 +1,34 @@
+#!/bin/sh
+
+set -eu
+
+papirus_version=20260801
+papirus_sha256=646f622e9e7e9e65eef9d0ab58999d4920ddb33d98e6a75232627cfe3bd508f9
+cursor_version=v2.0.0
+cursor_theme=catppuccin-mocha-mauve-cursors
+cursor_sha256=971e113a49de65529b3b706ce8529c1c80f22b2828b9c2f4732b3363fb69fcbb
+data_home=${XDG_DATA_HOME:-"$HOME/.local/share"}
+icons="$data_home/icons"
+tmp=$(mktemp -d)
+
+trap 'rm -rf "$tmp"' EXIT HUP INT TERM
+
+curl --fail --location --silent --show-error \
+    "https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/archive/$papirus_version.tar.gz" \
+    --output "$tmp/papirus.tar.gz"
+printf '%s  %s\n' "$papirus_sha256" "$tmp/papirus.tar.gz" \
+    | sha256sum --check --status
+
+install -d "$tmp/papirus" "$icons"
+tar -xf "$tmp/papirus.tar.gz" -C "$tmp/papirus" --strip-components=1
+rm -rf "$icons/Papirus" "$icons/Papirus-Dark"
+cp -R "$tmp/papirus/Papirus" "$tmp/papirus/Papirus-Dark" "$icons/"
+
+curl --fail --location --silent --show-error \
+    "https://github.com/catppuccin/cursors/releases/download/$cursor_version/$cursor_theme.zip" \
+    --output "$tmp/$cursor_theme.zip"
+printf '%s  %s\n' "$cursor_sha256" "$tmp/$cursor_theme.zip" \
+    | sha256sum --check --status
+
+rm -rf "$icons/$cursor_theme"
+unzip -oq "$tmp/$cursor_theme.zip" -d "$icons"

@@ -1,5 +1,7 @@
 environment {
     QT_STYLE_OVERRIDE "kvantum"
+    XCURSOR_THEME "catppuccin-mocha-mauve-cursors"
+    XCURSOR_SIZE "24"
 }
 
 input {
