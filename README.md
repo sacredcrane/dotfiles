@@ -6,10 +6,12 @@ desktop. The status sidebar is built with Eww and POSIX shell scripts.
 ## Packages
 
 - `foot`: terminal configuration
+- `gtk`: GTK 3/4 Mocha colors and desktop appearance
 - `eww`: sidebar, widgets, and hardware state providers
 - `fuzzel`: application launcher and secure prompts
 - `mako`: notification daemon theme
 - `niri`: compositor configuration and session startup
+- `yazi`: terminal file manager and Catppuccin flavor
 
 Each top-level package follows the GNU Stow layout and can be linked into
 `$HOME` independently.
@@ -19,7 +21,7 @@ Each top-level package follows the GNU Stow layout and can be linked into
 Install the base tools:
 
 ```sh
-doas xbps-install -S stow eww niri foot jq gawk iw wpa_supplicant \
+doas xbps-install -S stow eww niri foot yazi chafa jq gawk iw wpa_supplicant \
   brightnessctl pipewire wireplumber mako fuzzel swayidle swaylock \
   bluez libnotify
 ```
@@ -30,13 +32,15 @@ family name `JetBrainsMono Nerd Font Mono`.
 From the repository root, create the configuration links:
 
 ```sh
-stow --target="$HOME" eww foot fuzzel mako niri
+stow --target="$HOME" eww foot fuzzel gtk mako niri yazi
+ya pkg install
+apply-gtk-theme
 ```
 
 Remove them without deleting repository files:
 
 ```sh
-stow --delete --target="$HOME" eww foot fuzzel mako niri
+stow --delete --target="$HOME" eww foot fuzzel gtk mako niri yazi
 ```
 
 Existing files at the target paths must be moved or imported before Stow can
@@ -66,6 +70,7 @@ PIN or passkey need a separate interactive BlueZ agent.
 niri validate -c niri/.config/niri/config.kdl
 foot --config=foot/.config/foot/foot.ini --check-config
 fuzzel --config=fuzzel/.config/fuzzel/fuzzel.ini --check-config
+XDG_CONFIG_HOME="$PWD/yazi/.config" yazi --debug
 for script in eww/.config/eww/scripts/*.sh; do sh -n "$script"; done
 eww --config eww/.config/eww daemon
 eww --config eww/.config/eww open sidebar
