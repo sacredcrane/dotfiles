@@ -44,7 +44,7 @@ spawn-sh-at-startup "eww daemon >/dev/null 2>&1; eww open sidebar"
 spawn-at-startup "swayidle" "-w"
 
 spawn-at-startup "swww-daemon"
-spawn-at-startup "sh" "-c" "sleep 1; swww img /home/sacredcrane/Pictures/walpappers/village.png --resize crop"
+spawn-sh-at-startup "sleep 1; swww img \"$HOME/.local/share/wallpapers/village.png\" --resize crop"
 
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
@@ -63,7 +63,7 @@ binds {
 
     Mod+T hotkey-overlay-title="Open a Terminal: Foot" { spawn "foot"; }
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "lock-screen"; }
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "$HOME/.config/eww/scripts/volume-scroll.sh up"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn-sh "$HOME/.config/eww/scripts/volume-scroll.sh down"; }

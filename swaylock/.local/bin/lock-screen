@@ -1,0 +1,5 @@
+#!/bin/sh
+
+exec swaylock \
+  --image "$HOME/.local/share/wallpapers/village.png" \
+  --scaling fill

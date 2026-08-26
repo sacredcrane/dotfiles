@@ -32,7 +32,7 @@ selection="$(
 
 case "$action" in
 suspend)
-  swaylock >/dev/null 2>&1 &
+  lock-screen >/dev/null 2>&1 &
   sleep 0.5
   exec doas -n /usr/bin/zzz
   ;;

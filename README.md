@@ -16,6 +16,7 @@ desktop. The status sidebar is built with Eww and POSIX shell scripts.
 - `niri`: compositor configuration and session startup
 - `qt`: Qt 5/6 Catppuccin theme through Kvantum
 - `swaylock`: lock screen appearance
+- `wallpaper`: desktop and lock-screen background
 - `yazi`: terminal file manager and Catppuccin flavor
 - `zellij`: terminal workspace configuration and theme
 
@@ -38,7 +39,7 @@ family name `JetBrainsMono Nerd Font Mono`.
 From the repository root, create the configuration links:
 
 ```sh
-stow --target="$HOME" applications eww fastfetch foot fuzzel gtk mako niri qt swaylock yazi zellij
+stow --target="$HOME" applications eww fastfetch foot fuzzel gtk mako niri qt swaylock wallpaper yazi zellij
 install-app-themes
 install-icon-cursor-themes
 install-kvantum-theme
@@ -56,7 +57,7 @@ doas install -Dm644 greetd/etc/tuigreet/config.toml /etc/tuigreet/config.toml
 Remove them without deleting repository files:
 
 ```sh
-stow --delete --target="$HOME" applications eww fastfetch foot fuzzel gtk mako niri qt swaylock yazi zellij
+stow --delete --target="$HOME" applications eww fastfetch foot fuzzel gtk mako niri qt swaylock wallpaper yazi zellij
 ```
 
 Existing files at the target paths must be moved or imported before Stow can
