@@ -32,7 +32,7 @@ selection="$(
 
 case "$action" in
 suspend)
-  lock-screen >/dev/null 2>&1 &
+  "$HOME/.local/bin/lock-screen" >/dev/null 2>&1 &
   sleep 0.5
   exec doas -n /usr/bin/zzz
   ;;

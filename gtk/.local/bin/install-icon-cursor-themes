@@ -7,8 +7,8 @@ papirus_sha256=646f622e9e7e9e65eef9d0ab58999d4920ddb33d98e6a75232627cfe3bd508f9
 cursor_version=v2.0.0
 cursor_theme=catppuccin-mocha-mauve-cursors
 cursor_sha256=971e113a49de65529b3b706ce8529c1c80f22b2828b9c2f4732b3363fb69fcbb
-data_home=${XDG_DATA_HOME:-"$HOME/.local/share"}
-icons="$data_home/icons"
+xdg_icons="${XDG_DATA_HOME:-"$HOME/.local/share"}/icons"
+icons="$HOME/.icons"
 tmp=$(mktemp -d)
 
 trap 'rm -rf "$tmp"' EXIT HUP INT TERM
@@ -32,3 +32,8 @@ printf '%s  %s\n' "$cursor_sha256" "$tmp/$cursor_theme.zip" \
 
 rm -rf "$icons/$cursor_theme"
 unzip -oq "$tmp/$cursor_theme.zip" -d "$icons"
+
+rm -rf \
+    "$xdg_icons/Papirus" \
+    "$xdg_icons/Papirus-Dark" \
+    "$xdg_icons/$cursor_theme"

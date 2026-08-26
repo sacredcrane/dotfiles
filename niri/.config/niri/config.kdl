@@ -4,6 +4,11 @@ environment {
     XCURSOR_SIZE "24"
 }
 
+cursor {
+    xcursor-theme "catppuccin-mocha-mauve-cursors"
+    xcursor-size 24
+}
+
 input {
     keyboard {
         xkb {
@@ -63,7 +68,7 @@ binds {
 
     Mod+T hotkey-overlay-title="Open a Terminal: Foot" { spawn "foot"; }
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "lock-screen"; }
+    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn-sh "$HOME/.local/bin/lock-screen"; }
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "$HOME/.config/eww/scripts/volume-scroll.sh up"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn-sh "$HOME/.config/eww/scripts/volume-scroll.sh down"; }
