@@ -194,6 +194,11 @@ binds {
     Mod+V { toggle-window-floating; }
     Mod+Shift+V { switch-focus-between-floating-and-tiling; }
     Mod+W { toggle-column-tabbed-display; }
+    Ctrl+Shift+Left  { spawn "niri" "msg" "action" "move-floating-window" "-x" "-30"; }
+    Ctrl+Shift+Right { spawn "niri" "msg" "action" "move-floating-window" "-x" "+30"; }
+    Ctrl+Shift+Up    { spawn "niri" "msg" "action" "move-floating-window" "-y" "-30"; }
+    Ctrl+Shift+Down  { spawn "niri" "msg" "action" "move-floating-window" "-y" "+30"; }
+
 
     Print { screenshot; }
     Ctrl+Print { screenshot-screen; }
