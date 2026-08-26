@@ -213,9 +213,6 @@ spawn-at-startup "pipewire"
 spawn-at-startup "mako"
 spawn-sh-at-startup "eww daemon && eww open sidebar"
 spawn-at-startup "swayidle" "-w"
-// This line starts waybar, a commonly used bar for Wayland compositors.
-// spawn-sh-at-startup "/usr/bin/alacritty 2>~/alacritty.log"
-
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
 
@@ -300,7 +297,7 @@ layer-rule {
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    Mod+T hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
+    Mod+T hotkey-overlay-title="Open a Terminal: Foot" { spawn "foot"; }
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 
