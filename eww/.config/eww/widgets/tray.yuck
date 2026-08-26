@@ -9,14 +9,17 @@
       :text "󰀻")))
 
 (defwidget tray-popup-content []
-  (box
-    :class "tray-popup"
-    :orientation "h"
-    :space-evenly false
+  (eventbox
+    :onhoverlost "eww close tray-popup"
 
-    (systray
-      :icon-size 24
-      :spacing 8)))
+    (box
+      :class "tray-popup"
+      :orientation "h"
+      :space-evenly false
+
+      (systray
+        :icon-size 24
+        :spacing 8))))
 
 (defwindow tray-popup
   :monitor 0
