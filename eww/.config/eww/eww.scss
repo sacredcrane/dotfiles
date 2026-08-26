@@ -60,6 +60,23 @@ window {
   font-size: 16px;
 }
 
+.tray-toggle {
+  min-width: 32px;
+  min-height: 32px;
+  border-radius: 16px;
+  color: $teal;
+  transition: 150ms ease;
+}
+
+.tray-toggle:hover {
+  color: $base;
+  background: $teal;
+}
+
+.tray-toggle-icon {
+  font-size: 16px;
+}
+
 .bar-bottom {
   margin-bottom: 4px;
 }
@@ -229,6 +246,7 @@ tooltip label {
 
 .power-popup,
 .session-popup,
+.tray-popup,
 .calendar-popup,
 .volume-popup,
 .network-popup,
@@ -245,6 +263,43 @@ tooltip label {
 
 .session-popup {
   padding: 9px;
+}
+
+.tray-popup {
+  padding: 8px;
+}
+
+.tray-popup button {
+  padding: 4px;
+  border-radius: 8px;
+}
+
+.tray-popup button:hover {
+  background: $surface0;
+}
+
+menu {
+  padding: 6px;
+  border: 1px solid $surface1;
+  border-radius: 10px;
+  background: $mantle;
+  color: $text;
+}
+
+menuitem {
+  min-height: 28px;
+  padding: 0 8px;
+  border-radius: 6px;
+}
+
+menuitem:hover {
+  background: $surface0;
+}
+
+menu separator {
+  min-height: 1px;
+  margin: 4px 2px;
+  background: $surface0;
 }
 
 .session-popup-title {

@@ -1,0 +1,34 @@
+(defwidget tray []
+  (button
+    :class "tray-toggle"
+    :tooltip "Tray applications"
+    :onclick "$HOME/.config/eww/scripts/popup-toggle.sh tray-popup"
+
+    (label
+      :class "tray-toggle-icon"
+      :text "󰀻")))
+
+(defwidget tray-popup-content []
+  (box
+    :class "tray-popup"
+    :orientation "h"
+    :space-evenly false
+
+    (systray
+      :icon-size 24
+      :spacing 8)))
+
+(defwindow tray-popup
+  :monitor 0
+  :geometry (geometry
+    :x "8px"
+    :y "94px"
+    :width "200px"
+    :height "50px"
+    :anchor "right top")
+  :stacking "fg"
+  :exclusive false
+  :focusable false
+  :namespace "eww-tray-popup"
+
+  (tray-popup-content))

@@ -10,6 +10,7 @@
       :space-evenly false
       :spacing 8
       (system-power)
+      (tray)
       (workspaces))
 
     (box
