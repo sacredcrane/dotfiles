@@ -71,7 +71,7 @@
 (defwindow vpn-popup
   :monitor 0
   :geometry (geometry
-    :x "64px"
+    :x "8px"
     :y "120px"
     :width "220px"
     :height "115px"
