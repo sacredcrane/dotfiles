@@ -127,7 +127,7 @@
 (defwindow bluetooth-popup
   :monitor 0
   :geometry (geometry
-    :x "70px"
+    :x "64px"
     :y "155px"
     :width "240px"
     :height "300px"

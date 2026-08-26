@@ -34,7 +34,7 @@
 (defwindow calendar-popup
   :monitor 0
   :geometry (geometry
-    :x "70px"
+    :x "64px"
     :y "12px"
     :width "260px"
     :height "170px"

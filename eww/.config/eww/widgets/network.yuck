@@ -197,7 +197,7 @@
   :monitor 0
 
   :geometry (geometry
-    :x "70px"
+    :x "64px"
     :y "190px"
     :width "220px"
     :height "250px"

@@ -38,7 +38,7 @@
   :monitor 0
   :geometry
     (geometry
-      :x "6px"
+      :x "0px"
       :y "0px"
       :width "56px"
       :height "90%"

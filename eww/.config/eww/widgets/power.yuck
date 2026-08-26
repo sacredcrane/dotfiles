@@ -39,7 +39,7 @@
 (defwindow power-popup
   :monitor 0
   :geometry (geometry
-    :x "70px"
+    :x "64px"
     :y "105px"
     :width "155px"
     :height "95px"
