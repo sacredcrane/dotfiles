@@ -5,6 +5,7 @@ desktop. The status sidebar is built with Eww and POSIX shell scripts.
 
 ## Packages
 
+- `applications`: pinned Catppuccin themes for Chromium and Telegram
 - `foot`: terminal configuration
 - `gtk`: GTK 3/4 Mocha colors and desktop appearance
 - `eww`: sidebar, widgets, and hardware state providers
@@ -23,7 +24,7 @@ Each top-level package follows the GNU Stow layout and can be linked into
 Install the base tools:
 
 ```sh
-doas xbps-install -S stow eww niri foot yazi jq gawk iw wpa_supplicant \
+doas xbps-install -S stow eww niri foot yazi jq gawk iw wpa_supplicant unzip \
   brightnessctl pipewire wireplumber mako fuzzel swayidle swaylock \
   bluez libnotify zellij kvantum
 ```
@@ -34,7 +35,8 @@ family name `JetBrainsMono Nerd Font Mono`.
 From the repository root, create the configuration links:
 
 ```sh
-stow --target="$HOME" eww foot fuzzel gtk mako niri qt yazi zellij
+stow --target="$HOME" applications eww foot fuzzel gtk mako niri qt yazi zellij
+install-app-themes
 install-kvantum-theme
 ya pkg install
 apply-gtk-theme
@@ -43,11 +45,23 @@ apply-gtk-theme
 Remove them without deleting repository files:
 
 ```sh
-stow --delete --target="$HOME" eww foot fuzzel gtk mako niri qt yazi zellij
+stow --delete --target="$HOME" applications eww foot fuzzel gtk mako niri qt yazi zellij
 ```
 
 Existing files at the target paths must be moved or imported before Stow can
 create links.
+
+## Application themes
+
+`install-app-themes` downloads checksum-verified, pinned Catppuccin themes.
+Chromium requires loading
+`~/.local/share/chromium-themes/catppuccin-chrome-mocha-mauve` once from
+`chrome://extensions` with Developer mode enabled. Apply the Telegram theme
+once with:
+
+```sh
+xdg-open ~/.local/share/telegram-themes/catppuccin-mocha.tdesktop-theme
+```
 
 ## Connectivity
 
