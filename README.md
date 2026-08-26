@@ -18,9 +18,9 @@ Each top-level package follows the GNU Stow layout and can be linked into
 Install the base tools:
 
 ```sh
-sudo xbps-install -S stow eww niri alacritty jq gawk iw wpa_supplicant \
+doas xbps-install -S stow eww niri alacritty jq gawk iw wpa_supplicant \
   brightnessctl pipewire wireplumber mako fuzzel swayidle swaylock \
-  polkit-gnome
+  polkit-gnome bluez libnotify
 ```
 
 The bar also expects `tlp`, `tlp-pd`, `tlpctl`, and a Nerd Font with the
@@ -41,10 +41,47 @@ stow --delete --target="$HOME" alacritty eww fuzzel niri
 Existing files at the target paths must be moved or imported before Stow can
 create links.
 
+## Connectivity
+
+The Wi-Fi popup manages `wpa_supplicant` directly. Its control interface must
+be available to the desktop user and `update_config=1` must be enabled before
+new profiles can be persisted. WPA2 and WPA3 passwords are entered in a
+dedicated Fuzzel namespace that niri blocks from screen capture. Passwords are
+not stored in Eww state or passed as command-line arguments.
+
+Enable the Void Linux Bluetooth service:
+
+```sh
+doas ln -s /etc/sv/bluetoothd /var/service/
+```
+
+Bluetooth pairing uses the BlueZ `NoInputNoOutput` agent and therefore targets
+JustWorks devices such as most headphones and gamepads. Devices that require a
+PIN or passkey need a separate interactive BlueZ agent.
+
+The VPN widget controls only the `my_pc` profile. Keep its private configuration
+outside this repository and restrict its permissions:
+
+```sh
+chmod 600 "$HOME/Documents/my_pc.conf"
+```
+
+Add these exact rules to `/etc/doas.conf` so Eww can connect and disconnect
+without handling an administrator password:
+
+```conf
+permit nopass sacredcrane as root cmd /usr/local/bin/awg-quick args up /home/sacredcrane/Documents/my_pc.conf
+permit nopass sacredcrane as root cmd /usr/local/bin/awg-quick args down /home/sacredcrane/Documents/my_pc.conf
+```
+
+The profile path and executable are intentionally allowlisted. Do not replace
+the argument list with unrestricted `awg-quick` access.
+
 ## Validate
 
 ```sh
 niri validate -c niri/.config/niri/config.kdl
+fuzzel --config=fuzzel/.config/fuzzel/fuzzel.ini --check-config
 for script in eww/.config/eww/scripts/*.sh; do sh -n "$script"; done
 eww --config eww/.config/eww daemon
 eww --config eww/.config/eww open sidebar
