@@ -61,7 +61,7 @@ Chromium requires loading
 once with:
 
 ```sh
-xdg-open ~/.local/share/telegram-themes/catppuccin-mocha.tdesktop-theme
+Telegram -- ~/.local/share/telegram-themes/catppuccin-mocha.tdesktop-theme
 ```
 
 ## Connectivity

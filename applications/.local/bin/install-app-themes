@@ -36,4 +36,4 @@ printf '%s\n' \
     "Chromium: open chrome://extensions, enable Developer mode, then load unpacked:" \
     "  $chrome_target" \
     "Telegram: open and confirm the theme:" \
-    "  xdg-open $telegram_target"
+    "  Telegram -- $telegram_target"
