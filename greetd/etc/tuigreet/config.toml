@@ -1,0 +1,47 @@
+[display]
+show_time = true
+time_format = "%a, %d %b  %H:%M"
+battery = true
+greeting = "Welcome home"
+show_title = true
+custom_title = "Void Linux"
+align_greeting = "center"
+
+[remember]
+username = true
+
+[secret]
+mode = "characters"
+characters = "*"
+
+[layout]
+width = 64
+window_padding = 1
+container_padding = 2
+prompt_padding = 1
+
+[layout.widgets]
+time_position = "top"
+status_position = "bottom"
+battery_position = "right"
+
+[layout.widgets.status_bar]
+show_reset = true
+show_command = false
+show_session = false
+show_power = true
+show_background = false
+show_session_status = false
+show_caps_lock = true
+
+[theme]
+border = "#CBA6F7"
+text = "#CDD6F4"
+time = "#89B4FA"
+container = "#1E1E2E"
+title = "#CBA6F7"
+greet = "#B4BEFE"
+prompt = "#94E2D5"
+input = "#CDD6F4"
+action = "#A6ADC8"
+button = "#FAB387"

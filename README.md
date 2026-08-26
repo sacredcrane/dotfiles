@@ -11,6 +11,7 @@ desktop. The status sidebar is built with Eww and POSIX shell scripts.
 - `eww`: sidebar, widgets, and hardware state providers
 - `fastfetch`: compact system summary
 - `fuzzel`: application launcher and secure prompts
+- `greetd`: system-owned greetd and tuigreet configuration
 - `mako`: notification daemon theme
 - `niri`: compositor configuration and session startup
 - `qt`: Qt 5/6 Catppuccin theme through Kvantum
@@ -18,17 +19,17 @@ desktop. The status sidebar is built with Eww and POSIX shell scripts.
 - `yazi`: terminal file manager and Catppuccin flavor
 - `zellij`: terminal workspace configuration and theme
 
-Each top-level package follows the GNU Stow layout and can be linked into
-`$HOME` independently.
+User packages follow the GNU Stow layout and can be linked into `$HOME`
+independently. The `greetd` package contains root-owned files for `/etc`.
 
 ## Install
 
 Install the base tools:
 
 ```sh
-doas xbps-install -S stow eww niri foot yazi fastfetch jq gawk iw wpa_supplicant unzip \
-  brightnessctl pipewire wireplumber mako fuzzel swayidle swaylock \
-  bluez libnotify zellij kvantum
+doas xbps-install -S stow eww niri foot yazi fastfetch jq gawk iw wpa_supplicant \
+  curl unzip brightnessctl pipewire wireplumber mako fuzzel swayidle swaylock \
+  bluez libnotify zellij kvantum greetd tuigreet
 ```
 
 The bar also expects `tlp`, `tlp-pd`, `tlpctl`, and a Nerd Font with the
@@ -39,9 +40,17 @@ From the repository root, create the configuration links:
 ```sh
 stow --target="$HOME" applications eww fastfetch foot fuzzel gtk mako niri qt swaylock yazi zellij
 install-app-themes
+install-icon-cursor-themes
 install-kvantum-theme
 ya pkg install
 apply-gtk-theme
+```
+
+Install the root-owned login manager configuration separately:
+
+```sh
+doas install -Dm644 greetd/etc/greetd/config.toml /etc/greetd/config.toml
+doas install -Dm644 greetd/etc/tuigreet/config.toml /etc/tuigreet/config.toml
 ```
 
 Remove them without deleting repository files:
