@@ -35,13 +35,13 @@ show_session_status = false
 show_caps_lock = true
 
 [theme]
-border = "#CBA6F7"
-text = "#CDD6F4"
-time = "#89B4FA"
-container = "#1E1E2E"
-title = "#CBA6F7"
-greet = "#B4BEFE"
-prompt = "#94E2D5"
-input = "#CDD6F4"
-action = "#A6ADC8"
-button = "#FAB387"
+border = "magenta"
+text = "white"
+time = "blue"
+container = "black"
+title = "magenta"
+greet = "magenta"
+prompt = "cyan"
+input = "white"
+action = "cyan"
+button = "yellow"
