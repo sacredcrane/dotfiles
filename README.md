@@ -21,7 +21,7 @@ Each top-level package follows the GNU Stow layout and can be linked into
 Install the base tools:
 
 ```sh
-doas xbps-install -S stow eww niri foot yazi chafa jq gawk iw wpa_supplicant \
+doas xbps-install -S stow eww niri foot yazi jq gawk iw wpa_supplicant \
   brightnessctl pipewire wireplumber mako fuzzel swayidle swaylock \
   bluez libnotify
 ```
