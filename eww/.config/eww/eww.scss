@@ -1,42 +1,27 @@
-// =========================
-// Catppuccin Mocha palette
-// =========================
-
 $rosewater: #f5e0dc;
-$flamingo:  #f2cdcd;
-$pink:      #f5c2e7;
-$mauve:     #cba6f7;
-$red:       #f38ba8;
-$maroon:    #eba0ac;
-$peach:     #fab387;
-$yellow:    #f9e2af;
-$green:     #a6e3a1;
-$teal:      #94e2d5;
-$sky:       #89dceb;
-$sapphire:  #74c7ec;
-$blue:      #89b4fa;
-$lavender:  #b4befe;
-
-$text:      #cdd6f4;
-$subtext1:  #bac2de;
-$subtext0:  #a6adc8;
-
-$overlay2:  #9399b2;
-$overlay1:  #7f849c;
-$overlay0:  #6c7086;
-
-$surface2:  #585b70;
-$surface1:  #45475a;
-$surface0:  #313244;
-
-$base:      #1e1e2e;
-$mantle:    #181825;
-$crust:     #11111b;
-
-
-// =========================
-// Global
-// =========================
+$pink: #f5c2e7;
+$mauve: #cba6f7;
+$red: #f38ba8;
+$peach: #fab387;
+$yellow: #f9e2af;
+$green: #a6e3a1;
+$teal: #94e2d5;
+$sky: #89dceb;
+$sapphire: #74c7ec;
+$blue: #89b4fa;
+$lavender: #b4befe;
+$text: #cdd6f4;
+$subtext1: #bac2de;
+$subtext0: #a6adc8;
+$overlay2: #9399b2;
+$overlay1: #7f849c;
+$overlay0: #6c7086;
+$surface2: #585b70;
+$surface1: #45475a;
+$surface0: #313244;
+$base: #1e1e2e;
+$mantle: #181825;
+$crust: #11111b;
 
 * {
   all: unset;
@@ -47,18 +32,12 @@ window {
   background: transparent;
 }
 
-
-// =========================
-// Main sidebar
-// =========================
-
 .bar {
-  background: rgba(30, 30, 46, 0.96);
-
-  border: 1px solid $surface0;
-  border-radius: 18px;
-
   padding: 10px 6px;
+  border: 1px solid rgba($surface1, 0.85);
+  border-radius: 18px;
+  background: rgba($base, 0.96);
+  box-shadow: 0 6px 18px rgba($crust, 0.45);
 }
 
 .bar-top {
@@ -66,16 +45,14 @@ window {
 }
 
 .bar-center {
+  padding: 8px 0;
+  border-radius: 14px;
+  background: rgba($mantle, 0.55);
 }
 
 .bar-bottom {
   margin-bottom: 4px;
 }
-
-
-// =========================
-// Workspaces
-// =========================
 
 .workspaces {
   margin-top: 2px;
@@ -84,16 +61,11 @@ window {
 .workspace {
   min-width: 32px;
   min-height: 32px;
-
   border-radius: 16px;
-
   color: $overlay1;
-  background: transparent;
-
   font-size: 12px;
-  font-weight: 500;
-
-  transition: 150ms;
+  font-weight: 600;
+  transition: 150ms ease;
 }
 
 .workspace:hover {
@@ -103,28 +75,17 @@ window {
 
 .workspace.active {
   color: $base;
-  background: $blue;
-
-  font-weight: 700;
+  background: $mauve;
+  box-shadow: 0 2px 8px rgba($mauve, 0.32);
+  font-weight: 800;
 }
-
-
-// =========================
-// Generic metrics
-// volume / brightness / battery
-// =========================
 
 .metric {
   min-width: 36px;
-
   padding: 5px 0;
-
   border-radius: 12px;
-
   color: $subtext1;
-  background: transparent;
-
-  transition: 150ms;
+  transition: 150ms ease;
 }
 
 .metric:hover {
@@ -133,51 +94,32 @@ window {
 
 .metric-icon {
   color: $blue;
-
   font-size: 17px;
 }
 
 .metric-value {
   margin-top: 3px;
-
   color: $overlay1;
-
   font-size: 9px;
-  font-weight: 500;
-}
-
-
-// =========================
-// Volume
-// =========================
-
-.volume {
+  font-weight: 600;
 }
 
 .volume .metric-icon {
   color: $blue;
 }
 
-
-// =========================
-// Brightness
-// =========================
-
-.brightness {
-}
-
 .brightness .metric-icon {
   color: $yellow;
 }
 
-
-// =========================
-// Battery
-// =========================
+.network .metric-icon {
+  color: $sapphire;
+}
 
 .battery .metric-icon {
   font-size: 24px;
 }
+
 .battery .metric-value {
   margin-top: -2px;
 }
@@ -198,89 +140,83 @@ window {
   color: $teal;
 }
 
+.keyboard-layout {
+  padding: 4px 0;
+}
+
 .layout-value {
   color: $subtext1;
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 1px;
-}
-
-.keyboard-layout {
-  padding: 3px 0;
 }
 
 .keyboard-layout:hover .layout-value {
   color: $blue;
 }
 
-
-// =========================
-// Clock
-// =========================
-
 .clock {
-  margin-bottom: 2px;
+  min-width: 36px;
+  padding: 5px 0;
+  border-radius: 12px;
+  transition: 150ms ease;
 }
 
-.clock-hour {
+.clock:hover {
+  background: $surface0;
+}
+
+.clock-hours,
+.clock-minutes {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.clock-hours {
   color: $text;
-
-  font-size: 14px;
-  font-weight: 700;
 }
 
-.clock-minute {
+.clock-minutes {
   color: $lavender;
-
-  font-size: 14px;
-  font-weight: 700;
 }
 
+button {
+  transition: 150ms ease;
+}
 
-// =========================
-// Tooltips
-// =========================
+button:active {
+  opacity: 0.7;
+}
 
 tooltip {
-  background: $mantle;
-
-  border: 1px solid $surface0;
+  border: 1px solid $surface1;
   border-radius: 10px;
-
+  background: $mantle;
   color: $text;
 }
 
 tooltip label {
   padding: 6px 8px;
-
   color: $text;
-
   font-size: 11px;
 }
 
-
-// =========================
-// Generic button behaviour
-// =========================
-
-button {
-  transition: 150ms;
-}
-
-button:active {
-  opacity: 0.75;
+.power-popup,
+.calendar-popup,
+.network-popup {
+  border: 1px solid $surface1;
+  border-radius: 14px;
+  background: rgba($base, 0.98);
+  box-shadow: 0 8px 24px rgba($crust, 0.52);
 }
 
 .power-popup {
-  background: rgba(30, 30, 46, 0.97);
-  border: 1px solid $surface0;
-  border-radius: 12px;
   padding: 7px;
 }
 
 .power-profile {
-  min-height: 24px;
-  padding: 0 6px;
+  min-height: 26px;
+  padding: 0 7px;
   border-radius: 8px;
   color: $subtext1;
   font-size: 10px;
@@ -293,14 +229,11 @@ button:active {
 
 .power-profile.active {
   background: $surface1;
-  color: $blue;
-  font-weight: 700;
+  color: $mauve;
+  font-weight: 800;
 }
 
 .calendar-popup {
-  background: rgba(30, 30, 46, 0.97);
-  border: 1px solid $surface0;
-  border-radius: 14px;
   padding: 8px;
 }
 
@@ -312,7 +245,7 @@ calendar {
 
 calendar.header {
   color: $text;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 calendar.button {
@@ -329,30 +262,23 @@ calendar.highlight {
 }
 
 calendar:selected {
-  background: $blue;
-  color: $base;
   border-radius: 6px;
+  background: $mauve;
+  color: $base;
 }
 
 calendar:indeterminate {
   color: $surface2;
 }
 
-.network .metric-icon {
-  color: $sapphire;
-}
-
 .network-popup {
-  background: rgba(30, 30, 46, 0.97);
-  border: 1px solid $surface0;
-  border-radius: 12px;
   padding: 9px;
 }
 
 .network-title {
   color: $text;
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .network-info,
@@ -367,8 +293,8 @@ calendar:indeterminate {
 
 .network-separator {
   min-height: 1px;
-  background: $surface0;
   margin: 2px 0;
+  background: $surface0;
 }
 
 .wifi-network {
@@ -410,151 +336,6 @@ calendar:indeterminate {
 .wifi-network.active .wifi-network-state {
   color: $green;
 }
-
-.network .metric-icon {
-  color: $sapphire;
-}
-
-.network-popup {
-  background: rgba(30, 30, 46, 0.97);
-  border: 1px solid $surface0;
-  border-radius: 12px;
-  padding: 9px;
-}
-
-.network-title {
-  color: $text;
-  font-size: 10px;
-  font-weight: 700;
-}
-
-.network-info,
-.network-state {
-  color: $overlay1;
-  font-size: 9px;
-}
-
-.network-state.connected {
-  color: $green;
-}
-
-.network-separator {
-  min-height: 1px;
-  background: $surface0;
-  margin: 2px 0;
-}
-
-.wifi-network {
-  min-height: 30px;
-  padding: 0 7px;
-  border-radius: 8px;
-  color: $subtext1;
-}
-
-.wifi-network:hover {
-  background: $surface0;
-  color: $text;
-}
-
-.wifi-network.active {
-  background: $surface1;
-  color: $blue;
-}
-
-.wifi-network.unknown {
-  color: $overlay0;
-}
-
-.wifi-network-icon {
-  min-width: 18px;
-  color: $sapphire;
-  font-size: 13px;
-}
-
-.wifi-network-name {.network .metric-icon {
-  color: $sapphire;
-}
-
-.network-popup {
-  background: rgba(30, 30, 46, 0.97);
-  border: 1px solid $surface0;
-  border-radius: 12px;
-  padding: 9px;
-}
-
-.network-title {
-  color: $text;
-  font-size: 10px;
-  font-weight: 700;
-}
-
-.network-info,
-.network-state {
-  color: $overlay1;
-  font-size: 9px;
-}
-
-.network-state.connected {
-  color: $green;
-}
-
-.network-separator {
-  min-height: 1px;
-  background: $surface0;
-  margin: 2px 0;
-}
-
-.wifi-network {
-  min-height: 30px;
-  padding: 0 7px;
-  border-radius: 8px;
-  color: $subtext1;
-}
-
-.wifi-network:hover {
-  background: $surface0;
-  color: $text;
-}
-
-.wifi-network.active {
-  background: $surface1;
-  color: $blue;
-}
-
-.wifi-network.unknown {
-  color: $overlay0;
-}
-
-.wifi-network-icon {
-  min-width: 18px;
-  color: $sapphire;
-  font-size: 13px;
-}
-
-.wifi-network-name {
-  font-size: 10px;
-}
-
-.wifi-network-state {
-  color: $overlay1;
-  font-size: 9px;
-}
-
-.wifi-network.active .wifi-network-state {
-  color: $green;
-}
-  font-size: 10px;
-}
-
-.wifi-network-state {
-  color: $overlay1;
-  font-size: 9px;
-}
-
-.wifi-network.active .wifi-network-state {
-  color: $green;
-}
-
 
 .wifi-networks-scroll scrollbar {
   background: transparent;
