@@ -9,6 +9,7 @@ desktop. The status sidebar is built with Eww and POSIX shell scripts.
 - `foot`: terminal configuration
 - `gtk`: GTK 3/4 Mocha colors and desktop appearance
 - `eww`: sidebar, widgets, and hardware state providers
+- `fastfetch`: compact system summary
 - `fuzzel`: application launcher and secure prompts
 - `mako`: notification daemon theme
 - `niri`: compositor configuration and session startup
@@ -25,7 +26,7 @@ Each top-level package follows the GNU Stow layout and can be linked into
 Install the base tools:
 
 ```sh
-doas xbps-install -S stow eww niri foot yazi jq gawk iw wpa_supplicant unzip \
+doas xbps-install -S stow eww niri foot yazi fastfetch jq gawk iw wpa_supplicant unzip \
   brightnessctl pipewire wireplumber mako fuzzel swayidle swaylock \
   bluez libnotify zellij kvantum
 ```
@@ -36,7 +37,7 @@ family name `JetBrainsMono Nerd Font Mono`.
 From the repository root, create the configuration links:
 
 ```sh
-stow --target="$HOME" applications eww foot fuzzel gtk mako niri qt swaylock yazi zellij
+stow --target="$HOME" applications eww fastfetch foot fuzzel gtk mako niri qt swaylock yazi zellij
 install-app-themes
 install-kvantum-theme
 ya pkg install
@@ -46,7 +47,7 @@ apply-gtk-theme
 Remove them without deleting repository files:
 
 ```sh
-stow --delete --target="$HOME" applications eww foot fuzzel gtk mako niri qt swaylock yazi zellij
+stow --delete --target="$HOME" applications eww fastfetch foot fuzzel gtk mako niri qt swaylock yazi zellij
 ```
 
 Existing files at the target paths must be moved or imported before Stow can

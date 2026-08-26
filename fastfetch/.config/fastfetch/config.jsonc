@@ -1,0 +1,90 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "source": "void_small",
+    "padding": {
+      "top": 1,
+      "right": 3
+    },
+    "color": {
+      "1": "#cba6f7",
+      "2": "#b4befe"
+    }
+  },
+  "display": {
+    "separator": "  ",
+    "color": {
+      "keys": "#cba6f7",
+      "title": "#b4befe",
+      "output": "#cdd6f4",
+      "separator": "#585b70"
+    },
+    "key": {
+      "width": 13
+    }
+  },
+  "modules": [
+    "title",
+    {
+      "type": "separator",
+      "string": "──────────────"
+    },
+    {
+      "type": "os",
+      "key": "󰣇  OS"
+    },
+    {
+      "type": "host",
+      "key": "󰇅  Host"
+    },
+    {
+      "type": "kernel",
+      "key": "󰒋  Kernel"
+    },
+    {
+      "type": "uptime",
+      "key": "󰔛  Uptime"
+    },
+    {
+      "type": "packages",
+      "key": "󰏖  Packages"
+    },
+    {
+      "type": "shell",
+      "key": "󰆍  Shell"
+    },
+    {
+      "type": "wm",
+      "key": "󰖲  WM"
+    },
+    {
+      "type": "terminal",
+      "key": "󰆍  Terminal"
+    },
+    {
+      "type": "cpu",
+      "key": "󰻠  CPU"
+    },
+    {
+      "type": "gpu",
+      "key": "󰢮  GPU"
+    },
+    {
+      "type": "memory",
+      "key": "󰍛  Memory"
+    },
+    {
+      "type": "disk",
+      "key": "󰋊  Disk"
+    },
+    {
+      "type": "battery",
+      "key": "󰁹  Battery"
+    },
+    "break",
+    {
+      "type": "colors",
+      "symbol": "circle"
+    }
+  ]
+}
