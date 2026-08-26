@@ -43,6 +43,23 @@ window {
   margin-top: 4px;
 }
 
+.system-power {
+  min-width: 32px;
+  min-height: 32px;
+  border-radius: 16px;
+  color: $red;
+  transition: 150ms ease;
+}
+
+.system-power:hover {
+  color: $base;
+  background: $red;
+}
+
+.system-power-icon {
+  font-size: 16px;
+}
+
 .bar-bottom {
   margin-bottom: 4px;
 }
@@ -211,6 +228,7 @@ tooltip label {
 }
 
 .power-popup,
+.session-popup,
 .calendar-popup,
 .volume-popup,
 .network-popup,
@@ -223,6 +241,50 @@ tooltip label {
 
 .power-popup {
   padding: 7px;
+}
+
+.session-popup {
+  padding: 9px;
+}
+
+.session-popup-title {
+  color: $text;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.system-power-action {
+  min-height: 32px;
+  padding: 0 8px;
+  border-radius: 8px;
+  color: $subtext1;
+}
+
+.system-power-action:hover {
+  background: $surface0;
+  color: $text;
+}
+
+.system-power-action-icon {
+  min-width: 18px;
+  color: $mauve;
+  font-size: 13px;
+}
+
+.system-power-action.poweroff .system-power-action-icon {
+  color: $red;
+}
+
+.system-power-action.reboot .system-power-action-icon {
+  color: $peach;
+}
+
+.system-power-action.suspend .system-power-action-icon {
+  color: $blue;
+}
+
+.system-power-action-label {
+  font-size: 10px;
 }
 
 .power-profile {

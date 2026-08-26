@@ -1,6 +1,7 @@
 (include "./widgets/network.yuck")
 (include "./widgets/bluetooth.yuck")
 (include "./widgets/vpn.yuck")
+(include "./widgets/system-power.yuck")
 (include "./widgets/workspaces.yuck")
 (include "./widgets/volume.yuck")
 (include "./widgets/battery.yuck")

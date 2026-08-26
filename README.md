@@ -21,7 +21,7 @@ Install the base tools:
 ```sh
 doas xbps-install -S stow eww niri alacritty jq gawk iw wpa_supplicant \
   brightnessctl pipewire wireplumber mako fuzzel swayidle swaylock \
-  polkit-gnome bluez libnotify
+  bluez libnotify
 ```
 
 The bar also expects `tlp`, `tlp-pd`, `tlpctl`, and a Nerd Font with the
@@ -77,6 +77,18 @@ permit nopass sacredcrane as root cmd /usr/local/bin/awg-quick args down /home/s
 
 The profile path and executable are intentionally allowlisted. Do not replace
 the argument list with unrestricted `awg-quick` access.
+
+The power menu also needs exact passwordless rules because this session runs
+without elogind and therefore has no usable graphical polkit session:
+
+```conf
+permit nopass sacredcrane as root cmd /usr/bin/zzz args
+permit nopass sacredcrane as root cmd /usr/bin/reboot args
+permit nopass sacredcrane as root cmd /usr/bin/poweroff args
+```
+
+These rules allow only suspend, reboot, and poweroff without additional
+arguments. Eww asks for a separate confirmation before invoking them.
 
 ## Validate
 

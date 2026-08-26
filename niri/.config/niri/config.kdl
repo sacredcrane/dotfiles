@@ -212,7 +212,6 @@ layout {
 spawn-at-startup "pipewire"
 spawn-at-startup "mako"
 spawn-sh-at-startup "eww daemon && eww open sidebar"
-spawn-at-startup "/usr/libexec/polkit-gnome-authentication-agent-1"
 spawn-at-startup "swayidle" "-w"
 // This line starts waybar, a commonly used bar for Wayland compositors.
 // spawn-sh-at-startup "/usr/bin/alacritty 2>~/alacritty.log"

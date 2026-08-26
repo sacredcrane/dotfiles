@@ -1,0 +1,76 @@
+(defwidget system-power []
+  (button
+    :class "system-power"
+    :tooltip "Session power"
+    :onclick "$HOME/.config/eww/scripts/popup-toggle.sh session-popup"
+
+    (label
+      :class "system-power-icon"
+      :text "󰐥")))
+
+(defwidget system-power-action [action icon label]
+  (button
+    :class "system-power-action ${action}"
+    :onclick "$HOME/.config/eww/scripts/system-power.sh ${action}"
+
+    (box
+      :orientation "h"
+      :space-evenly false
+      :spacing 9
+
+      (label
+        :class "system-power-action-icon"
+        :text icon)
+
+      (label
+        :class "system-power-action-label"
+        :halign "start"
+        :text label))))
+
+(defwidget session-popup-content []
+  (eventbox
+    :onhoverlost "eww close session-popup"
+
+    (box
+      :class "session-popup"
+      :orientation "v"
+      :space-evenly false
+      :spacing 4
+
+      (label
+        :class "session-popup-title"
+        :halign "start"
+        :text "Power")
+
+      (box
+        :class "network-separator")
+
+      (system-power-action
+        :action "suspend"
+        :icon "󰤄"
+        :label "Suspend")
+
+      (system-power-action
+        :action "reboot"
+        :icon "󰜉"
+        :label "Reboot")
+
+      (system-power-action
+        :action "poweroff"
+        :icon "󰐥"
+        :label "Shut down"))))
+
+(defwindow session-popup
+  :monitor 0
+  :geometry (geometry
+    :x "8px"
+    :y "54px"
+    :width "180px"
+    :height "150px"
+    :anchor "right top")
+  :stacking "fg"
+  :exclusive false
+  :focusable false
+  :namespace "eww-session-popup"
+
+  (session-popup-content))

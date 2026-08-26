@@ -1,7 +1,7 @@
 #!/bin/sh
 
 target="$1"
-popups="calendar-popup power-popup volume-popup network-popup bluetooth-popup vpn-popup"
+popups="calendar-popup power-popup session-popup volume-popup network-popup bluetooth-popup vpn-popup"
 
 case " $popups " in
 *" $target "*) ;;

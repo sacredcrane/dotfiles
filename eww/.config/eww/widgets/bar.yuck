@@ -8,6 +8,8 @@
       :orientation "v"
       :valign "start"
       :space-evenly false
+      :spacing 8
+      (system-power)
       (workspaces))
 
     (box
