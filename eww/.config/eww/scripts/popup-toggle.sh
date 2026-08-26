@@ -19,8 +19,8 @@ for popup in $popups; do
 done
 
 case "$target" in
-network-popup) "$HOME/.config/eww/scripts/wifi-scan.sh" & ;;
-bluetooth-popup) "$HOME/.config/eww/scripts/bluetooth-action.sh" scan & ;;
+network-popup) "$HOME/.config/eww/scripts/wifi-scan.sh" >/dev/null 2>&1 & ;;
+bluetooth-popup) "$HOME/.config/eww/scripts/bluetooth-action.sh" scan >/dev/null 2>&1 & ;;
 esac
 
 eww open "$target"

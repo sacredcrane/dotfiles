@@ -32,6 +32,14 @@ devices="$(
 
       [ -n "$alias" ] && name="$alias"
 
+      address_name="$(printf '%s' "$address" | tr ':' '-')"
+
+      if [ "$name" = "$address" ] || [ "$name" = "$address_name" ]; then
+        named=false
+      else
+        named=true
+      fi
+
       case "$info" in
       *'Paired: yes'*) paired=true ;;
       *) paired=false ;;
@@ -50,18 +58,20 @@ devices="$(
       jq -cn \
         --arg address "$address" \
         --arg name "$name" \
+        --argjson named "$named" \
         --argjson paired "$paired" \
         --argjson trusted "$trusted" \
         --argjson connected "$connected" \
         '{
           address: $address,
           name: $name,
+          named: $named,
           paired: $paired,
           trusted: $trusted,
           connected: $connected
         }'
     done |
-    jq -sc 'sort_by([(.connected | not), (.paired | not), .name])'
+    jq -sc 'sort_by([(.connected | not), (.paired | not), (.named | not), .name])'
 )"
 
 [ -n "$devices" ] || devices='[]'

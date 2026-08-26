@@ -18,7 +18,7 @@ power-toggle)
   ;;
 scan)
   bluetoothctl power on >/dev/null 2>&1 || exit 1
-  bluetoothctl --timeout 15 scan on >/dev/null 2>&1 || true
+  bluetoothctl --timeout 30 scan on >/dev/null 2>&1 || true
   ;;
 pair | connect | disconnect | remove)
   valid_address "$address" || exit 2
