@@ -304,20 +304,27 @@ calendar:indeterminate {
   padding: 9px;
 }
 
-.vpn-state {
-  color: $overlay1;
-  font-size: 9px;
-}
-
-.vpn-state.active {
-  color: $green;
-}
-
 .vpn-profile {
-  min-height: 48px;
-  padding: 0 8px;
-  border-radius: 9px;
+  min-height: 38px;
+  padding: 0 7px;
+  border-radius: 8px;
+  color: $subtext1;
+}
+
+.vpn-profile:hover {
   background: $surface0;
+  color: $text;
+}
+
+.vpn-profile.active {
+  background: $surface1;
+  color: $text;
+}
+
+.vpn-profile-icon {
+  min-width: 18px;
+  color: $mauve;
+  font-size: 13px;
 }
 
 .vpn-profile-name {
@@ -331,20 +338,13 @@ calendar:indeterminate {
   font-size: 9px;
 }
 
-.vpn-toggle {
-  min-width: 30px;
-  min-height: 30px;
-  border-radius: 9px;
+.vpn-profile-state {
+  color: $blue;
+  font-size: 9px;
+}
+
+.vpn-profile-state.active {
   color: $green;
-  background: $surface1;
-}
-
-.vpn-toggle.active {
-  color: $red;
-}
-
-.vpn-toggle-icon {
-  font-size: 14px;
 }
 
 .connectivity-title {

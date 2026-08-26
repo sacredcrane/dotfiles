@@ -28,48 +28,55 @@
         :space-evenly false
 
         (label
-          :class "connectivity-title"
+          :class "network-title"
           :hexpand true
           :halign "start"
-          :text "AmneziaVPN")
+          :text "VPN")
 
         (label
-          :class {vpn-data.active ? "vpn-state active" : "vpn-state"}
-          :text {vpn-data.active ? "Connected" : "Offline"}))
+          :class "network-info"
+          :text "AmneziaWG"))
 
       (box
-        :class "vpn-profile"
-        :orientation "h"
-        :space-evenly false
+        :class "network-separator")
+
+      (button
+        :class {vpn-data.active ? "vpn-profile active" : "vpn-profile"}
+        :tooltip {vpn-data.active ? "Disconnect my_pc" : "Connect my_pc"}
+        :onclick {
+          vpn-data.active
+            ? "$HOME/.config/eww/scripts/vpn-action.sh disconnect"
+            : "$HOME/.config/eww/scripts/vpn-action.sh connect"
+        }
 
         (box
-          :orientation "v"
-          :hexpand true
-          :halign "start"
+          :orientation "h"
           :space-evenly false
+          :spacing 8
 
           (label
-            :class "vpn-profile-name"
+            :class "vpn-profile-icon"
+            :text {vpn-data.active ? "󰦝" : "󰦜"})
+
+          (box
+            :orientation "v"
+            :hexpand true
             :halign "start"
-            :text "my_pc")
+            :space-evenly false
+
+            (label
+              :class "vpn-profile-name"
+              :halign "start"
+              :text "my_pc")
+
+            (label
+              :class "vpn-address"
+              :halign "start"
+              :text {vpn-data.active ? vpn-data.address : "No tunnel"}))
 
           (label
-            :class "vpn-address"
-            :halign "start"
-            :text {vpn-data.active ? vpn-data.address : "AmneziaWG"}))
-
-        (button
-          :class {vpn-data.active ? "vpn-toggle active" : "vpn-toggle"}
-          :tooltip {vpn-data.active ? "Disconnect" : "Connect"}
-          :onclick {
-            vpn-data.active
-              ? "$HOME/.config/eww/scripts/vpn-action.sh disconnect"
-              : "$HOME/.config/eww/scripts/vpn-action.sh connect"
-          }
-
-          (label
-            :class "vpn-toggle-icon"
-            :text {vpn-data.active ? "󰅖" : "󰐥"}))))))
+            :class {vpn-data.active ? "vpn-profile-state active" : "vpn-profile-state"}
+            :text {vpn-data.active ? "Connected" : "Connect"}))))))
 
 (defwindow vpn-popup
   :monitor 0
@@ -77,7 +84,7 @@
     :x "8px"
     :y "120px"
     :width "220px"
-    :height "115px"
+    :height "105px"
     :anchor "right bottom")
   :stacking "fg"
   :exclusive false
