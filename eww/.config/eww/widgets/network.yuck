@@ -84,7 +84,7 @@
           : "Disconnected"
     }
 
-    :onclick "sh -c '$HOME/.config/eww/scripts/wifi-scan.sh & eww open --toggle network-popup --duration 20s'"
+    :onclick "$HOME/.config/eww/scripts/popup-toggle.sh network-popup"
 
     (label
       :class "metric-icon"
@@ -187,7 +187,7 @@
   :monitor 0
 
   :geometry (geometry
-    :x "8px"
+    :x "70px"
     :y "190px"
     :width "220px"
     :height "250px"
@@ -196,5 +196,6 @@
   :stacking "fg"
   :exclusive false
   :focusable false
+  :namespace "eww-network-popup"
 
   (network-popup-content))

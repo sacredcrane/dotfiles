@@ -34,7 +34,7 @@
 (defwindow calendar-popup
   :monitor 0
   :geometry (geometry
-    :x "8px"
+    :x "70px"
     :y "12px"
     :width "260px"
     :height "170px"
@@ -43,5 +43,6 @@
   :stacking "fg"
   :exclusive false
   :focusable false
+  :namespace "eww-calendar-popup"
 
   (calendar-content))

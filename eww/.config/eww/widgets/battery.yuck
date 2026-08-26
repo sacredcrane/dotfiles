@@ -7,7 +7,7 @@
   (button
     :class "metric battery ${battery-data.class}"
     :tooltip "${battery-data.status} · ${battery-data.capacity}%"
-    :onclick "eww open --toggle power-popup --duration 20s"
+    :onclick "$HOME/.config/eww/scripts/popup-toggle.sh power-popup"
 
     (box
       :orientation "v"

@@ -13,7 +13,7 @@
 (defwidget clock []
   (button
     :class "clock"
-    :onclick "eww open --toggle calendar-popup --duration 30s"
+    :onclick "$HOME/.config/eww/scripts/popup-toggle.sh calendar-popup"
 
     (box
       :orientation "v"
