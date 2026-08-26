@@ -29,6 +29,7 @@
       
       (network)
       (bluetooth)
+      (vpn)
       (keyboard-layout)
       (battery)
       (clock))))

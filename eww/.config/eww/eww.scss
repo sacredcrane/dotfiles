@@ -124,6 +124,14 @@ window {
   color: $overlay0;
 }
 
+.vpn .metric-icon {
+  color: $overlay0;
+}
+
+.vpn.active .metric-icon {
+  color: $mauve;
+}
+
 .battery .metric-icon {
   font-size: 24px;
 }
@@ -216,7 +224,8 @@ tooltip label {
 .power-popup,
 .calendar-popup,
 .network-popup,
-.bluetooth-popup {
+.bluetooth-popup,
+.vpn-popup {
   border: 1px solid $surface1;
   border-radius: 14px;
   background: rgba($base, 0.98);
@@ -290,6 +299,49 @@ calendar:indeterminate {
 
 .bluetooth-popup {
   padding: 9px;
+}
+
+.vpn-popup {
+  padding: 9px;
+}
+
+.vpn-state {
+  color: $overlay1;
+  font-size: 9px;
+}
+
+.vpn-state.active {
+  color: $green;
+}
+
+.vpn-profile {
+  min-height: 48px;
+  padding: 0 8px;
+  border-radius: 9px;
+  background: $surface0;
+}
+
+.vpn-profile-name {
+  color: $text;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.vpn-address {
+  color: $overlay1;
+  font-size: 9px;
+}
+
+.vpn-toggle {
+  min-width: 30px;
+  min-height: 30px;
+  border-radius: 9px;
+  color: $green;
+  background: $surface1;
+}
+
+.vpn-toggle.active {
+  color: $red;
 }
 
 .connectivity-title {

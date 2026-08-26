@@ -1,0 +1,84 @@
+(defpoll vpn-data
+  :interval "3s"
+  :initial "{\"profile\":\"my_pc\",\"active\":false,\"address\":\"\"}"
+  "$HOME/.config/eww/scripts/vpn-status.sh")
+
+(defwidget vpn []
+  (button
+    :class {vpn-data.active ? "metric vpn active" : "metric vpn"}
+    :tooltip {vpn-data.active ? "VPN · my_pc" : "VPN disconnected"}
+    :onclick "$HOME/.config/eww/scripts/popup-toggle.sh vpn-popup"
+
+    (label
+      :class "metric-icon"
+      :text {vpn-data.active ? "󰦝" : "󰦜"})))
+
+(defwidget vpn-popup-content []
+  (eventbox
+    :onhoverlost "eww close vpn-popup"
+
+    (box
+      :class "vpn-popup"
+      :orientation "v"
+      :space-evenly false
+      :spacing 8
+
+      (box
+        :orientation "h"
+        :space-evenly false
+
+        (label
+          :class "connectivity-title"
+          :hexpand true
+          :halign "start"
+          :text "AmneziaVPN")
+
+        (label
+          :class {vpn-data.active ? "vpn-state active" : "vpn-state"}
+          :text {vpn-data.active ? "Connected" : "Offline"}))
+
+      (box
+        :class "vpn-profile"
+        :orientation "h"
+        :space-evenly false
+
+        (box
+          :orientation "v"
+          :hexpand true
+          :halign "start"
+          :space-evenly false
+
+          (label
+            :class "vpn-profile-name"
+            :halign "start"
+            :text "my_pc")
+
+          (label
+            :class "vpn-address"
+            :halign "start"
+            :text {vpn-data.active ? vpn-data.address : "AmneziaWG"}))
+
+        (button
+          :class {vpn-data.active ? "vpn-toggle active" : "vpn-toggle"}
+          :tooltip {vpn-data.active ? "Disconnect" : "Connect"}
+          :onclick {
+            vpn-data.active
+              ? "$HOME/.config/eww/scripts/vpn-action.sh disconnect"
+              : "$HOME/.config/eww/scripts/vpn-action.sh connect"
+          }
+          :text {vpn-data.active ? "󰅖" : "󰐥"})))))
+
+(defwindow vpn-popup
+  :monitor 0
+  :geometry (geometry
+    :x "70px"
+    :y "120px"
+    :width "220px"
+    :height "115px"
+    :anchor "right bottom")
+  :stacking "fg"
+  :exclusive false
+  :focusable false
+  :namespace "eww-vpn-popup"
+
+  (vpn-popup-content))
