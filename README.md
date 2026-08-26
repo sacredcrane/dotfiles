@@ -8,6 +8,7 @@ desktop. The status sidebar is built with Eww and POSIX shell scripts.
 - `alacritty`: terminal configuration
 - `eww`: sidebar, widgets, and hardware state providers
 - `fuzzel`: application launcher and secure prompts
+- `mako`: notification daemon theme
 - `niri`: compositor configuration and session startup
 
 Each top-level package follows the GNU Stow layout and can be linked into
@@ -29,13 +30,13 @@ family name `JetBrainsMono Nerd Font Mono`.
 From the repository root, create the configuration links:
 
 ```sh
-stow --target="$HOME" alacritty eww fuzzel niri
+stow --target="$HOME" alacritty eww fuzzel mako niri
 ```
 
 Remove them without deleting repository files:
 
 ```sh
-stow --delete --target="$HOME" alacritty eww fuzzel niri
+stow --delete --target="$HOME" alacritty eww fuzzel mako niri
 ```
 
 Existing files at the target paths must be moved or imported before Stow can
