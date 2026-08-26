@@ -60,36 +60,6 @@ Bluetooth pairing uses the BlueZ `NoInputNoOutput` agent and therefore targets
 JustWorks devices such as most headphones and gamepads. Devices that require a
 PIN or passkey need a separate interactive BlueZ agent.
 
-The VPN widget controls only the `my_pc` profile. Keep its private configuration
-outside this repository and restrict its permissions:
-
-```sh
-chmod 600 "$HOME/Documents/my_pc.conf"
-```
-
-Add these exact rules to `/etc/doas.conf` so Eww can connect and disconnect
-without handling an administrator password:
-
-```conf
-permit nopass sacredcrane as root cmd /usr/local/bin/awg-quick args up /home/sacredcrane/Documents/my_pc.conf
-permit nopass sacredcrane as root cmd /usr/local/bin/awg-quick args down /home/sacredcrane/Documents/my_pc.conf
-```
-
-The profile path and executable are intentionally allowlisted. Do not replace
-the argument list with unrestricted `awg-quick` access.
-
-The power menu also needs exact passwordless rules because this session runs
-without elogind and therefore has no usable graphical polkit session:
-
-```conf
-permit nopass sacredcrane as root cmd /usr/bin/zzz args
-permit nopass sacredcrane as root cmd /usr/bin/reboot args
-permit nopass sacredcrane as root cmd /usr/bin/poweroff args
-```
-
-These rules allow only suspend, reboot, and poweroff without additional
-arguments. Eww asks for a separate confirmation before invoking them.
-
 ## Validate
 
 ```sh

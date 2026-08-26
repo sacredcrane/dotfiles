@@ -49,15 +49,13 @@ for path in /sys/class/net/*; do
   iface="$(basename "$path")"
 
   [ "$iface" = "lo" ] && continue
+
   [ "$iface" = "$wifi_iface" ] && continue
 
-  # Только реальные hardware interfaces.
   [ -e "$path/device" ] || continue
 
-  # Wi-Fi сюда не попадает.
   [ -d "$path/wireless" ] && continue
 
-  # Ethernet-like interface.
   [ "$(cat "$path/type" 2>/dev/null)" = "1" ] || continue
 
   ethernet_iface="$iface"
