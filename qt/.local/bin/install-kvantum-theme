@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -eu
+
+revision=71105d224fef95dd023691303477ce3eea487457
+theme=catppuccin-mocha-mauve
+base_url="https://raw.githubusercontent.com/catppuccin/Kvantum/$revision/themes/$theme"
+config_home=${XDG_CONFIG_HOME:-"$HOME/.config"}
+target="$config_home/Kvantum/$theme"
+tmp=$(mktemp -d)
+
+trap 'rm -rf "$tmp"' EXIT HUP INT TERM
+
+curl --fail --location --silent --show-error \
+    "$base_url/$theme.kvconfig" --output "$tmp/$theme.kvconfig"
+curl --fail --location --silent --show-error \
+    "$base_url/$theme.svg" --output "$tmp/$theme.svg"
+
+printf '%s  %s\n' \
+    6a7887331cd38c852c60dc0f62341456ccc45a1670d4c0c22b405790fbdebc5f "$tmp/$theme.kvconfig" \
+    d9eabcdf2764d114faa5bb74fdaa0a3617184191741a7526d3ebfbd30606c3f8 "$tmp/$theme.svg" \
+    | sha256sum --check --status
+
+install -d "$target"
+install -m 644 "$tmp/$theme.kvconfig" "$target/$theme.kvconfig"
+install -m 644 "$tmp/$theme.svg" "$target/$theme.svg"

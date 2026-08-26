@@ -11,7 +11,9 @@ desktop. The status sidebar is built with Eww and POSIX shell scripts.
 - `fuzzel`: application launcher and secure prompts
 - `mako`: notification daemon theme
 - `niri`: compositor configuration and session startup
+- `qt`: Qt 5/6 Catppuccin theme through Kvantum
 - `yazi`: terminal file manager and Catppuccin flavor
+- `zellij`: terminal workspace configuration and theme
 
 Each top-level package follows the GNU Stow layout and can be linked into
 `$HOME` independently.
@@ -23,7 +25,7 @@ Install the base tools:
 ```sh
 doas xbps-install -S stow eww niri foot yazi jq gawk iw wpa_supplicant \
   brightnessctl pipewire wireplumber mako fuzzel swayidle swaylock \
-  bluez libnotify
+  bluez libnotify zellij kvantum
 ```
 
 The bar also expects `tlp`, `tlp-pd`, `tlpctl`, and a Nerd Font with the
@@ -32,7 +34,8 @@ family name `JetBrainsMono Nerd Font Mono`.
 From the repository root, create the configuration links:
 
 ```sh
-stow --target="$HOME" eww foot fuzzel gtk mako niri yazi
+stow --target="$HOME" eww foot fuzzel gtk mako niri qt yazi zellij
+install-kvantum-theme
 ya pkg install
 apply-gtk-theme
 ```
@@ -40,7 +43,7 @@ apply-gtk-theme
 Remove them without deleting repository files:
 
 ```sh
-stow --delete --target="$HOME" eww foot fuzzel gtk mako niri yazi
+stow --delete --target="$HOME" eww foot fuzzel gtk mako niri qt yazi zellij
 ```
 
 Existing files at the target paths must be moved or imported before Stow can
@@ -70,6 +73,7 @@ PIN or passkey need a separate interactive BlueZ agent.
 niri validate -c niri/.config/niri/config.kdl
 foot --config=foot/.config/foot/foot.ini --check-config
 fuzzel --config=fuzzel/.config/fuzzel/fuzzel.ini --check-config
+zellij --config zellij/.config/zellij/config.kdl setup --check
 XDG_CONFIG_HOME="$PWD/yazi/.config" yazi --debug
 for script in eww/.config/eww/scripts/*.sh; do sh -n "$script"; done
 eww --config eww/.config/eww daemon
