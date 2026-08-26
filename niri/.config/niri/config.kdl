@@ -41,6 +41,9 @@ spawn-at-startup "mako"
 spawn-sh-at-startup "eww daemon >/dev/null 2>&1; eww open sidebar"
 spawn-at-startup "swayidle" "-w"
 
+spawn-at-startup "swww-daemon"
+spawn-at-startup "sh" "-c" "sleep 1; swww img /home/sacredcrane/Pictures/walpappers/village.png --resize crop"
+
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
 window-rule {
