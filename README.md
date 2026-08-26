@@ -5,7 +5,7 @@ desktop. The status sidebar is built with Eww and POSIX shell scripts.
 
 ## Packages
 
-- `applications`: pinned Catppuccin themes for Chromium and Telegram
+- `applications`: Catppuccin themes for Chromium and Telegram
 - `foot`: terminal configuration
 - `gtk`: GTK 3/4 Mocha colors and desktop appearance
 - `eww`: sidebar, widgets, and hardware state providers
@@ -54,14 +54,14 @@ create links.
 
 ## Application themes
 
-`install-app-themes` downloads checksum-verified, pinned Catppuccin themes.
+`install-app-themes` downloads a checksum-verified, pinned Chromium theme.
 Chromium requires loading
 `~/.local/share/chromium-themes/catppuccin-chrome-mocha-mauve` once from
-`chrome://extensions` with Developer mode enabled. Apply the Telegram theme
-once with:
+`chrome://extensions` with Developer mode enabled. Telegram uses the official
+Catppuccin cloud theme and requires confirming it once:
 
 ```sh
-Telegram -- ~/.local/share/telegram-themes/catppuccin-mocha.tdesktop-palette
+Telegram -- 'tg://addtheme?slug=ctp_mocha'
 ```
 
 ## Connectivity

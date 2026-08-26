@@ -5,11 +5,8 @@ set -eu
 chrome_version=v5.0.0
 chrome_theme=catppuccin-chrome-mocha-mauve
 chrome_sha256=d841de83790103219003a1ef66a0805b18b44d1af23d893d127f976ef90fd246
-telegram_revision=25e4ddb6d16694b46ff7a90d41cce2372ab4c25b
-telegram_sha256=1602dfd11a6df573a55dd89c889cb0020eb39912a240403809f7ccb04507f035
 data_home=${XDG_DATA_HOME:-"$HOME/.local/share"}
 chrome_target="$data_home/chromium-themes/$chrome_theme"
-telegram_target="$data_home/telegram-themes/catppuccin-mocha.tdesktop-palette"
 tmp=$(mktemp -d)
 
 trap 'rm -rf "$tmp"' EXIT HUP INT TERM
@@ -23,18 +20,12 @@ printf '%s  %s\n' "$chrome_sha256" "$tmp/$chrome_theme.zip" \
 install -d "$chrome_target"
 unzip -oq "$tmp/$chrome_theme.zip" -d "$chrome_target"
 
-curl --fail --location --silent --show-error \
-    "https://raw.githubusercontent.com/catppuccin/telegram/$telegram_revision/src/mocha/desktop" \
-    --output "$tmp/catppuccin-mocha.tdesktop-palette"
-printf '%s  %s\n' "$telegram_sha256" "$tmp/catppuccin-mocha.tdesktop-palette" \
-    | sha256sum --check --status
-
-install -d "$(dirname "$telegram_target")"
-install -m 644 "$tmp/catppuccin-mocha.tdesktop-palette" "$telegram_target"
-rm -f "$data_home/telegram-themes/catppuccin-mocha.tdesktop-theme"
+rm -f \
+    "$data_home/telegram-themes/catppuccin-mocha.tdesktop-theme" \
+    "$data_home/telegram-themes/catppuccin-mocha.tdesktop-palette"
 
 printf '%s\n' \
     "Chromium: open chrome://extensions, enable Developer mode, then load unpacked:" \
     "  $chrome_target" \
-    "Telegram: open and confirm the theme:" \
-    "  Telegram -- $telegram_target"
+    "Telegram: open the official cloud theme and confirm it:" \
+    "  Telegram -- 'tg://addtheme?slug=ctp_mocha'"
