@@ -1,9 +1,27 @@
 #!/bin/sh
 
-BAT="/sys/class/power_supply/BAT0"
+battery=""
 
-capacity="$(cat "$BAT/capacity" 2>/dev/null || echo 0)"
-status="$(cat "$BAT/status" 2>/dev/null || echo Unknown)"
+for supply in /sys/class/power_supply/*; do
+  [ -d "$supply" ] || continue
+  [ "$(cat "$supply/type" 2>/dev/null)" = "Battery" ] || continue
+  battery="$supply"
+  break
+done
+
+if [ -z "$battery" ]; then
+  jq -cn '{capacity: 0, status: "Unavailable", icon: "󰂑", class: "unavailable"}'
+  exit 0
+fi
+
+capacity="$(cat "$battery/capacity" 2>/dev/null)"
+status="$(cat "$battery/status" 2>/dev/null)"
+
+case "$capacity" in
+'' | *[!0-9]*) capacity=0 ;;
+esac
+
+[ -n "$status" ] || status="Unknown"
 
 if [ "$capacity" -ge 90 ]; then
   icon=""
@@ -27,5 +45,9 @@ else
   class="good"
 fi
 
-printf '{"capacity":%s,"status":"%s","icon":"%s","class":"%s"}\n' \
-  "$capacity" "$status" "$icon" "$class"
+jq -cn \
+  --argjson capacity "$capacity" \
+  --arg status "$status" \
+  --arg icon "$icon" \
+  --arg class "$class" \
+  '{capacity: $capacity, status: $status, icon: $icon, class: $class}'

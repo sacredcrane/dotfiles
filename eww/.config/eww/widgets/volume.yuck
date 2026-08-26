@@ -1,17 +1,15 @@
-(defpoll volume-value
+(defpoll volume-data
   :interval "1s"
-  `wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf "%d", $2 * 100}'`)
-
-(defpoll volume-muted
-  :interval "1s"
-  `wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo false || echo true`)
+  :initial "{\"volume\":0,\"muted\":false}"
+  "$HOME/.config/eww/scripts/volume-status.sh")
 
 (defwidget volume[]
   (eventbox
-    :onscroll "$HOME/.config/eww/scripts/volume-scroll {}"
+    :onscroll "$HOME/.config/eww/scripts/volume-scroll.sh {}"
     
     (button
       :class "metric volume"
+      :tooltip {volume-data.muted ? "Muted" : "Volume ${volume-data.volume}%"}
       :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
       
       (box
@@ -20,8 +18,8 @@
         
         (label
           :class "metric-icon"
-          :text {volume-muted ? "󰕾" : "󰝟"})
+          :text {volume-data.muted ? "󰝟" : "󰕾"})
 
         (label
           :class "metric-value"
-          :text "${volume-value}")))))
+          :text "${volume-data.volume}")))))

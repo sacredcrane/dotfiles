@@ -1,12 +1,14 @@
 (defpoll brightness-value
   :interval "1s"
-  `brightnessctl -m | cut -d, -f4 | tr -d '%'`)
+  :initial "0"
+  `brightnessctl --class=backlight -m | awk -F, 'NR == 1 { gsub(/%/, "", $4); print $4 }'`)
 
 (defwidget brightness[]
   (eventbox
-    :onscroll "$HOME/.config/eww/scripts/brightness-scroll.sh"
+    :onscroll "$HOME/.config/eww/scripts/brightness-scroll.sh {}"
     (box 
       :class "metric brightness"
+      :tooltip "Brightness ${brightness-value}%"
       :orientation "v"
       :space-evenly false
       

@@ -1,5 +1,6 @@
 (defpoll battery-data
   :interval "20s"
+  :initial "{\"capacity\":0,\"status\":\"Unknown\",\"icon\":\"󰂑\",\"class\":\"unavailable\"}"
   "$HOME/.config/eww/scripts/battery-status.sh")
 
 (defwidget battery []
