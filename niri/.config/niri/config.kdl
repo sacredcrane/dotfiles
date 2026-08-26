@@ -286,10 +286,9 @@ window-rule {
     // block-out-from "screencast"
 }
 
-// Example: enable rounded corners for all windows.
-// (This example rule is commented out with a "/-" in front.)
-/-window-rule {
-    geometry-corner-radius 12
+// Keep client content inside the compositor-drawn rounded geometry.
+window-rule {
+    geometry-corner-radius 16
     clip-to-geometry true
 }
 
