@@ -292,6 +292,12 @@ window-rule {
     clip-to-geometry true
 }
 
+// Password prompts use a dedicated Fuzzel namespace.
+layer-rule {
+    match namespace=r#"^wifi-password$"#
+    block-out-from "screen-capture"
+}
+
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
