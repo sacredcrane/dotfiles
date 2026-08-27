@@ -47,6 +47,9 @@ ya pkg install
 apply-gtk-theme
 ```
 
+The icon installer combines Papirus with the official Catppuccin Mocha Mauve
+folder overlay and installs the matching Catppuccin cursor theme.
+
 Install the root-owned login manager configuration and greeter background
 separately:
 

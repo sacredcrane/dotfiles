@@ -4,6 +4,10 @@ set -eu
 
 papirus_version=20260801
 papirus_sha256=646f622e9e7e9e65eef9d0ab58999d4920ddb33d98e6a75232627cfe3bd508f9
+folders_commit=f83671d17ea67e335b34f8028a7e6d78bca735d7
+folders_sha256=52105ae8a0b97ec6d6d9d3978f9ab7b4c274d9eb752e79c22fe30dc153cc2a5b
+folders_script_commit=0f838ee5679229e3a3e97e3b333c222c9e9615b4
+folders_script_sha256=b30a6848a00690302accffc050549218b0b114d3178b28bd3a16891817821b06
 cursor_version=v2.0.0
 cursor_theme=catppuccin-mocha-mauve-cursors
 cursor_sha256=971e113a49de65529b3b706ce8529c1c80f22b2828b9c2f4732b3363fb69fcbb
@@ -23,6 +27,28 @@ install -d "$tmp/papirus" "$icons"
 tar -xf "$tmp/papirus.tar.gz" -C "$tmp/papirus" --strip-components=1
 rm -rf "$icons/Papirus" "$icons/Papirus-Dark"
 cp -R "$tmp/papirus/Papirus" "$tmp/papirus/Papirus-Dark" "$icons/"
+
+curl --fail --location --silent --show-error \
+    "https://github.com/catppuccin/papirus-folders/archive/$folders_commit.tar.gz" \
+    --output "$tmp/catppuccin-folders.tar.gz"
+printf '%s  %s\n' "$folders_sha256" "$tmp/catppuccin-folders.tar.gz" \
+    | sha256sum --check --status
+
+install -d "$tmp/catppuccin-folders"
+tar -xf "$tmp/catppuccin-folders.tar.gz" \
+    -C "$tmp/catppuccin-folders" --strip-components=1
+
+curl --fail --location --silent --show-error \
+    "https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-folders/$folders_script_commit/papirus-folders" \
+    --output "$tmp/papirus-folders"
+printf '%s  %s\n' "$folders_script_sha256" "$tmp/papirus-folders" \
+    | sha256sum --check --status
+
+cp -R "$tmp/catppuccin-folders/src/." "$icons/Papirus/"
+for theme in Papirus Papirus-Dark; do
+    USER_HOME="$HOME" bash "$tmp/papirus-folders" \
+        --once --theme "$icons/$theme" --color cat-mocha-mauve
+done
 
 curl --fail --location --silent --show-error \
     "https://github.com/catppuccin/cursors/releases/download/$cursor_version/$cursor_theme.zip" \
