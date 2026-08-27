@@ -1,0 +1,6 @@
+[terminal]
+vt = next
+
+[default_session]
+command = "tuigreet --config /etc/tuigreet/config.toml --cmd /usr/local/bin/niri-void-session"
+user = "_greeter"

@@ -11,7 +11,7 @@ desktop. The status sidebar is built with Eww and POSIX shell scripts.
 - `eww`: sidebar, widgets, and hardware state providers
 - `fastfetch`: compact system summary
 - `fuzzel`: application launcher and secure prompts
-- `greetd`: system-owned greetd and tuigreet configuration
+- `greetd`: system-owned ReGreet and fallback Tuigreet configuration
 - `mako`: notification daemon theme
 - `niri`: compositor configuration and session startup
 - `qt`: Qt 5/6 Catppuccin theme through Kvantum
@@ -30,7 +30,7 @@ Install the base tools:
 ```sh
 doas xbps-install -S stow eww niri foot yazi fastfetch jq gawk iw wpa_supplicant \
   curl unzip brightnessctl pipewire wireplumber mako fuzzel swayidle swaylock \
-  bluez libnotify zellij kvantum greetd tuigreet
+  bluez libnotify zellij kvantum greetd ReGreet tuigreet
 ```
 
 The bar also expects `tlp`, `tlp-pd`, `tlpctl`, and a Nerd Font with the
@@ -47,11 +47,25 @@ ya pkg install
 apply-gtk-theme
 ```
 
-Install the root-owned login manager configuration separately:
+Install the root-owned login manager configuration and greeter background
+separately:
 
 ```sh
-doas install -Dm644 greetd/etc/greetd/config.toml /etc/greetd/config.toml
-doas install -Dm644 greetd/etc/tuigreet/config.toml /etc/tuigreet/config.toml
+doas ./greetd/install
+```
+
+ReGreet runs inside a dedicated niri instance. To allow its power buttons,
+grant the `_greeter` user only the two required commands in `/etc/doas.conf`:
+
+```text
+permit nopass _greeter as root cmd /usr/bin/reboot args
+permit nopass _greeter as root cmd /usr/bin/poweroff args
+```
+
+Restore the terminal greeter if the graphical greeter cannot start:
+
+```sh
+doas install -Dm644 greetd/etc/greetd/config.tuigreet.toml /etc/greetd/config.toml
 ```
 
 Remove them without deleting repository files:

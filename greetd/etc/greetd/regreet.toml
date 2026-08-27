@@ -1,0 +1,28 @@
+[background]
+path = "/etc/greetd/background.png"
+fit = "Cover"
+
+[env]
+XDG_CURRENT_DESKTOP = "niri"
+XDG_SESSION_DESKTOP = "niri"
+XDG_SESSION_TYPE = "wayland"
+
+[GTK]
+application_prefer_dark_theme = true
+cursor_theme_name = "Adwaita"
+font_name = "JetBrainsMono Nerd Font Mono 14"
+icon_theme_name = "Adwaita"
+theme_name = "Adwaita"
+
+[commands]
+reboot = ["doas", "-n", "/usr/bin/reboot"]
+poweroff = ["doas", "-n", "/usr/bin/poweroff"]
+x11_prefix = ["startx", "/usr/bin/env"]
+
+[appearance]
+greeting_msg = "VOID // AUTHENTICATION"
+
+[widget.clock]
+format = "%a, %d %b  %H:%M"
+resolution = "1s"
+label_width = 240

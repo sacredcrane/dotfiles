@@ -2,5 +2,5 @@
 vt = next
 
 [default_session]
-command = "tuigreet --config /etc/tuigreet/config.toml --cmd /usr/local/bin/niri-void-session"
+command = "env GTK_USE_PORTAL=0 GDK_DEBUG=no-portals dbus-run-session niri --config /etc/greetd/niri.kdl"
 user = "_greeter"

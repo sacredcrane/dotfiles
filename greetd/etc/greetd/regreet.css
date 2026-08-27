@@ -1,0 +1,81 @@
+* {
+    font-family: "JetBrainsMono Nerd Font Mono", monospace;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+window {
+    color: #cdd6f4;
+    background-color: #1e1e2e;
+}
+
+frame.background {
+    color: #cdd6f4;
+    background-color: rgba(17, 17, 27, 0.96);
+    border: 1px solid #cba6f7;
+    border-radius: 2px;
+}
+
+frame.background > grid {
+    padding: 12px;
+}
+
+label {
+    color: #bac2de;
+}
+
+entry,
+passwordentry,
+combobox button {
+    min-height: 38px;
+    color: #cdd6f4;
+    caret-color: #cba6f7;
+    background-color: #181825;
+    border: 1px solid #45475a;
+    border-radius: 2px;
+    outline: none;
+}
+
+entry:focus,
+passwordentry:focus-within,
+combobox button:focus {
+    border-color: #cba6f7;
+}
+
+button {
+    min-height: 36px;
+    color: #cdd6f4;
+    background-color: #313244;
+    border: 1px solid #45475a;
+    border-radius: 2px;
+}
+
+button:hover {
+    color: #11111b;
+    background-color: #b4befe;
+    border-color: #b4befe;
+}
+
+button.suggested-action {
+    color: #11111b;
+    background-color: #cba6f7;
+    border-color: #cba6f7;
+}
+
+button.destructive-action {
+    color: #f38ba8;
+    background-color: rgba(17, 17, 27, 0.96);
+    border-color: #6c3b4f;
+}
+
+popover contents {
+    color: #cdd6f4;
+    background-color: #181825;
+    border: 1px solid #45475a;
+    border-radius: 2px;
+}
+
+selection {
+    color: #11111b;
+    background-color: #cba6f7;
+}
