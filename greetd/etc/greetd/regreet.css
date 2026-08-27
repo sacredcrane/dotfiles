@@ -11,43 +11,45 @@ window {
 
 frame.background {
     color: #cdd6f4;
-    background-color: rgba(17, 17, 27, 0.96);
-    border: 1px solid #cba6f7;
-    border-radius: 2px;
+    background-color: rgba(30, 30, 46, 0.88);
+    border: 2px solid rgba(203, 166, 247, 0.82);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(17, 17, 27, 0.28);
 }
 
 frame.background > grid {
-    padding: 12px;
+    padding: 16px;
 }
 
 label {
-    color: #bac2de;
+    color: #cdd6f4;
 }
 
 entry,
 passwordentry,
 combobox button {
-    min-height: 38px;
+    min-height: 40px;
     color: #cdd6f4;
     caret-color: #cba6f7;
-    background-color: #181825;
-    border: 1px solid #45475a;
-    border-radius: 2px;
+    background-color: rgba(49, 50, 68, 0.92);
+    border: 1px solid #6c7086;
+    border-radius: 10px;
     outline: none;
 }
 
 entry:focus,
 passwordentry:focus-within,
 combobox button:focus {
-    border-color: #cba6f7;
+    border: 2px solid #cba6f7;
 }
 
 button {
-    min-height: 36px;
+    min-height: 38px;
+    padding: 4px 14px;
     color: #cdd6f4;
-    background-color: #313244;
-    border: 1px solid #45475a;
-    border-radius: 2px;
+    background-color: #45475a;
+    border: 1px solid #6c7086;
+    border-radius: 10px;
 }
 
 button:hover {
@@ -64,15 +66,15 @@ button.suggested-action {
 
 button.destructive-action {
     color: #f38ba8;
-    background-color: rgba(17, 17, 27, 0.96);
-    border-color: #6c3b4f;
+    background-color: rgba(243, 139, 168, 0.12);
+    border-color: rgba(243, 139, 168, 0.55);
 }
 
 popover contents {
     color: #cdd6f4;
-    background-color: #181825;
-    border: 1px solid #45475a;
-    border-radius: 2px;
+    background-color: #313244;
+    border: 1px solid #6c7086;
+    border-radius: 12px;
 }
 
 selection {
