@@ -18,4 +18,5 @@ wpa_cli -i "$iface" list_networks 2>/dev/null |
   exit 2
 
 wpa_cli -i "$iface" enable_network "$id" >/dev/null &&
-  wpa_cli -i "$iface" select_network "$id" >/dev/null
+  wpa_cli -i "$iface" select_network "$id" >/dev/null &&
+  wpa_cli -i "$iface" save_config >/dev/null
