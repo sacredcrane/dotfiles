@@ -5,19 +5,35 @@ set -eu
 repo=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 login_user=${DOAS_USER:-${SUDO_USER:-}}
 
-niri validate -c "$repo/greetd/etc/greetd/niri.kdl"
+for program in cage regreet; do
+    if ! command -v "$program" >/dev/null 2>&1; then
+        printf '%s\n' "greetd: $program is required" >&2
+        exit 1
+    fi
+done
 
 if [ -f /etc/greetd/config.toml ] && [ ! -f /etc/greetd/config.toml.tuigreet ]; then
     install -m644 /etc/greetd/config.toml /etc/greetd/config.toml.tuigreet
 fi
 
-install -Dm644 "$repo/greetd/etc/greetd/config.toml" /etc/greetd/config.toml
-install -Dm644 "$repo/greetd/etc/greetd/niri.kdl" /etc/greetd/niri.kdl
 install -Dm644 "$repo/greetd/etc/greetd/regreet.toml" /etc/greetd/regreet.toml
 install -Dm644 "$repo/greetd/etc/greetd/regreet.css" /etc/greetd/regreet.css
 install -Dm644 \
     "$repo/wallpaper/.local/share/wallpapers/village.png" \
     /etc/greetd/background.png
+
+if [ -f /usr/share/wayland-sessions/niri.desktop ] && \
+    [ ! -f /usr/share/wayland-sessions/niri.desktop.package ]; then
+    install -m644 \
+        /usr/share/wayland-sessions/niri.desktop \
+        /usr/share/wayland-sessions/niri.desktop.package
+fi
+install -Dm644 \
+    "$repo/greetd/usr/share/wayland-sessions/niri.desktop" \
+    /usr/share/wayland-sessions/niri.desktop
+install -Dm755 \
+    "$repo/greetd/usr/local/bin/niri-void-session" \
+    /usr/local/bin/niri-void-session
 
 install -d -m755 -o _greeter -g _greeter /var/lib/regreet /var/log/regreet
 
@@ -31,3 +47,6 @@ if [ -n "$login_user" ]; then
         fc-cache -f /usr/local/share/fonts/JetBrainsMonoNerd
     fi
 fi
+
+# Switch greetd only after every dependency and supporting file is in place.
+install -Dm644 "$repo/greetd/etc/greetd/config.toml" /etc/greetd/config.toml

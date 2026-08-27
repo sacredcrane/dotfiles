@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -eu
+
+export LIBSEAT_BACKEND=seatd
+
+if [ -n "${DBUS_SESSION_BUS_ADDRESS:-}" ]; then
+    exec /usr/bin/niri --session
+fi
+
+exec dbus-run-session /usr/bin/niri --session

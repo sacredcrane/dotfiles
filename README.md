@@ -30,7 +30,7 @@ Install the base tools:
 ```sh
 doas xbps-install -S stow eww niri foot yazi fastfetch jq gawk iw wpa_supplicant \
   curl unzip brightnessctl pipewire wireplumber mako fuzzel swayidle swaylock \
-  bluez libnotify zellij kvantum greetd ReGreet tuigreet
+  bluez libnotify zellij kvantum greetd ReGreet cage tuigreet
 ```
 
 The bar also expects `tlp`, `tlp-pd`, `tlpctl`, and a Nerd Font with the
@@ -54,8 +54,9 @@ separately:
 doas ./greetd/install
 ```
 
-ReGreet runs inside a dedicated niri instance. To allow its power buttons,
-grant the `_greeter` user only the two required commands in `/etc/doas.conf`:
+ReGreet runs inside Cage so that the greeter compositor releases the active VT
+before the user niri session takes over. To allow its power buttons, grant the
+`_greeter` user only the two required commands in `/etc/doas.conf`:
 
 ```text
 permit nopass _greeter as root cmd /usr/bin/reboot args
