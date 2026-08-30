@@ -45,8 +45,9 @@ layout {
 
 spawn-at-startup "pipewire"
 spawn-at-startup "mako"
+spawn-at-startup "/usr/libexec/polkit-gnome-authentication-agent-1"
 spawn-sh-at-startup "eww daemon >/dev/null 2>&1; eww open sidebar"
-spawn-at-startup "swayidle" "-w"
+spawn-sh-at-startup "$HOME/.local/bin/start-swayidle"
 
 spawn-at-startup "swww-daemon"
 spawn-sh-at-startup "sleep 1; swww img \"$HOME/.local/share/wallpapers/village.png\" --resize crop"

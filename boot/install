@@ -1,0 +1,113 @@
+#!/bin/sh
+
+set -eu
+
+grub_commit=0a37ab19f654e77129b409fed371891c01ffd0b9
+grub_sha256=285a2f1942d9a7aaaa61d53fbf8eaea40c1bb1a2f5ed662b8355bf9b0499116b
+plymouth_commit=198eba2071d80e4a23b8f51a5859e8f4acf8de6c
+plymouth_sha256=91f87e75c5cf505b02276c8163f8046bb4bede634dcb7b23da1c4d25190407c2
+default_kernel=6.18.45_2
+grub_theme=/boot/grub/themes/catppuccin-mocha-grub-theme/theme.txt
+repo=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+tmp=$(mktemp -d)
+
+trap 'rm -rf "$tmp"' EXIT HUP INT TERM
+
+if [ "$(id -u)" -ne 0 ]; then
+    printf '%s\n' 'boot: run this installer as root' >&2
+    exit 1
+fi
+
+for program in curl dracut findmnt grub-mkconfig grub-script-check plymouth-set-default-theme sha256sum tar; do
+    if ! command -v "$program" >/dev/null 2>&1; then
+        printf '%s\n' "boot: $program is required" >&2
+        exit 1
+    fi
+done
+
+if [ ! -f "/boot/vmlinuz-$default_kernel" ]; then
+    printf '%s\n' "boot: kernel $default_kernel is not installed" >&2
+    exit 1
+fi
+
+root_uuid=$(findmnt -n -o UUID /)
+if [ -z "$root_uuid" ]; then
+    printf '%s\n' 'boot: could not determine the root filesystem UUID' >&2
+    exit 1
+fi
+default_entry="gnulinux-advanced-$root_uuid>gnulinux-$default_kernel-advanced-$root_uuid"
+
+curl --fail --location --silent --show-error \
+    "https://github.com/catppuccin/grub/archive/$grub_commit.tar.gz" \
+    --output "$tmp/grub.tar.gz"
+printf '%s  %s\n' "$grub_sha256" "$tmp/grub.tar.gz" \
+    | sha256sum --check --status
+
+curl --fail --location --silent --show-error \
+    "https://github.com/catppuccin/plymouth/archive/$plymouth_commit.tar.gz" \
+    --output "$tmp/plymouth.tar.gz"
+printf '%s  %s\n' "$plymouth_sha256" "$tmp/plymouth.tar.gz" \
+    | sha256sum --check --status
+
+install -d "$tmp/grub" "$tmp/plymouth"
+tar -xf "$tmp/grub.tar.gz" -C "$tmp/grub" --strip-components=2 \
+    "grub-$grub_commit/src/catppuccin-mocha-grub-theme"
+tar -xf "$tmp/plymouth.tar.gz" -C "$tmp/plymouth" --strip-components=2 \
+    "plymouth-$plymouth_commit/themes/catppuccin-mocha"
+
+test -f "$tmp/grub/catppuccin-mocha-grub-theme/theme.txt"
+test -f "$tmp/plymouth/catppuccin-mocha/catppuccin-mocha.plymouth"
+
+for file in /etc/default/grub /etc/plymouth/plymouthd.conf /boot/grub/grub.cfg; do
+    if [ -f "$file" ] && [ ! -f "$file.catppuccin-backup" ]; then
+        cp -a "$file" "$file.catppuccin-backup"
+    fi
+done
+
+rm -rf /boot/grub/themes/catppuccin-mocha-grub-theme
+install -d /boot/grub/themes
+cp -R "$tmp/grub/catppuccin-mocha-grub-theme" /boot/grub/themes/
+
+rm -rf /usr/share/plymouth/themes/catppuccin-mocha
+cp -R "$tmp/plymouth/catppuccin-mocha" /usr/share/plymouth/themes/
+plymouth-set-default-theme catppuccin-mocha
+install -Dm644 "$repo/boot/etc/dracut.conf.d/10-plymouth.conf" \
+    /etc/dracut.conf.d/10-plymouth.conf
+
+. /etc/default/grub
+cmdline=${GRUB_CMDLINE_LINUX_DEFAULT:-}
+case " $cmdline " in *' quiet '*) ;; *) cmdline="$cmdline quiet" ;; esac
+case " $cmdline " in *' splash '*) ;; *) cmdline="$cmdline splash" ;; esac
+cmdline=${cmdline# }
+
+awk -v cmdline="$cmdline" -v default_entry="$default_entry" -v theme="$grub_theme" '
+    BEGIN { default_seen = save_seen = cmdline_seen = theme_seen = 0 }
+    /^[[:space:]]*GRUB_DEFAULT=/ {
+        print "GRUB_DEFAULT=\"" default_entry "\""; default_seen = 1; next
+    }
+    /^[[:space:]]*GRUB_SAVEDEFAULT=/ {
+        print "GRUB_SAVEDEFAULT=false"; save_seen = 1; next
+    }
+    /^[[:space:]]*GRUB_CMDLINE_LINUX_DEFAULT=/ {
+        print "GRUB_CMDLINE_LINUX_DEFAULT=\"" cmdline "\""
+        cmdline_seen = 1; next
+    }
+    /^[[:space:]]*GRUB_THEME=/ {
+        print "GRUB_THEME=\"" theme "\""; theme_seen = 1; next
+    }
+    { print }
+    END {
+        if (!default_seen) print "GRUB_DEFAULT=\"" default_entry "\""
+        if (!save_seen) print "GRUB_SAVEDEFAULT=false"
+        if (!cmdline_seen) print "GRUB_CMDLINE_LINUX_DEFAULT=\"" cmdline "\""
+        if (!theme_seen) print "GRUB_THEME=\"" theme "\""
+    }
+' /etc/default/grub > "$tmp/grub.default"
+install -m644 "$tmp/grub.default" /etc/default/grub
+
+dracut --regenerate-all --force
+grub-mkconfig -o "$tmp/grub.cfg"
+grub-script-check "$tmp/grub.cfg"
+install -m600 "$tmp/grub.cfg" /boot/grub/grub.cfg
+
+printf '%s\n' 'boot: Catppuccin Mocha GRUB and Plymouth themes installed'

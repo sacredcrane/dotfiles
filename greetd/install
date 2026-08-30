@@ -3,11 +3,25 @@
 set -eu
 
 repo=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
-login_user=${DOAS_USER:-${SUDO_USER:-}}
+login_user=${LOGIN_USER:-${DOAS_USER:-${SUDO_USER:-}}}
 
 for program in cage regreet; do
     if ! command -v "$program" >/dev/null 2>&1; then
         printf '%s\n' "greetd: $program is required" >&2
+        exit 1
+    fi
+done
+
+if [ -z "$login_user" ]; then
+    printf '%s\n' 'greetd: set LOGIN_USER when running directly as root' >&2
+    exit 1
+fi
+
+login_home=$(getent passwd "$login_user" | cut -d: -f6)
+icon_source="$login_home/.icons"
+for theme in Papirus Papirus-Dark catppuccin-mocha-mauve-cursors; do
+    if [ ! -d "$icon_source/$theme" ]; then
+        printf '%s\n' "greetd: run install-icon-cursor-themes as $login_user first" >&2
         exit 1
     fi
 done
@@ -37,16 +51,19 @@ install -Dm755 \
 
 install -d -m755 -o _greeter -g _greeter /var/lib/regreet /var/log/regreet
 
-if [ -n "$login_user" ]; then
-    login_home=$(getent passwd "$login_user" | cut -d: -f6)
-    font_source="$login_home/.local/share/fonts/JetBrainsMonoNerd"
+font_source="$login_home/.local/share/fonts/JetBrainsMonoNerd"
 
-    if [ -d "$font_source" ]; then
-        install -d /usr/local/share/fonts/JetBrainsMonoNerd
-        cp -R "$font_source/." /usr/local/share/fonts/JetBrainsMonoNerd/
-        fc-cache -f /usr/local/share/fonts/JetBrainsMonoNerd
-    fi
+if [ -d "$font_source" ]; then
+    install -d /usr/local/share/fonts/JetBrainsMonoNerd
+    cp -R "$font_source/." /usr/local/share/fonts/JetBrainsMonoNerd/
+    fc-cache -f /usr/local/share/fonts/JetBrainsMonoNerd
 fi
+
+install -d /usr/local/share/icons
+for theme in Papirus Papirus-Dark catppuccin-mocha-mauve-cursors; do
+    rm -rf "/usr/local/share/icons/$theme"
+    cp -R "$icon_source/$theme" /usr/local/share/icons/
+done
 
 # Switch greetd only after every dependency and supporting file is in place.
 install -Dm644 "$repo/greetd/etc/greetd/config.toml" /etc/greetd/config.toml

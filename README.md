@@ -6,6 +6,7 @@ desktop. The status sidebar is built with Eww and POSIX shell scripts.
 ## Packages
 
 - `applications`: Catppuccin themes for Chromium and Telegram
+- `boot`: checksum-verified Catppuccin GRUB and Plymouth installer
 - `foot`: terminal configuration
 - `gtk`: GTK 3/4 Mocha colors and desktop appearance
 - `eww`: sidebar, widgets, and hardware state providers
@@ -16,9 +17,11 @@ desktop. The status sidebar is built with Eww and POSIX shell scripts.
 - `niri`: compositor configuration and session startup
 - `qt`: Qt 5/6 Catppuccin theme through Kvantum
 - `swaylock`: lock screen appearance
+- `swayidle`: automatic lock and display power management
 - `wallpaper`: desktop and lock-screen background
 - `yazi`: terminal file manager and Catppuccin flavor
 - `zellij`: terminal workspace configuration and theme
+- `xdg-desktop-portal`: explicit GTK, GNOME, and Secret portal selection
 
 User packages follow the GNU Stow layout and can be linked into `$HOME`
 independently. The `greetd` package contains root-owned files for `/etc`.
@@ -30,7 +33,9 @@ Install the base tools:
 ```sh
 doas xbps-install -S stow eww niri foot yazi fastfetch jq gawk iw wpa_supplicant \
   curl unzip brightnessctl pipewire wireplumber mako fuzzel swayidle swaylock \
-  bluez libnotify zellij kvantum greetd ReGreet cage tuigreet
+  bluez libnotify zellij kvantum greetd ReGreet cage tuigreet polkit-gnome \
+  gnome-keyring xdg-desktop-portal xdg-desktop-portal-gtk \
+  xdg-desktop-portal-gnome plymouth plymouth-data
 ```
 
 The bar also expects `tlp`, `tlp-pd`, `tlpctl`, and a Nerd Font with the
@@ -39,7 +44,7 @@ family name `JetBrainsMono Nerd Font Mono`.
 From the repository root, create the configuration links:
 
 ```sh
-stow --target="$HOME" applications eww fastfetch foot fuzzel gtk mako niri qt swaylock wallpaper yazi zellij
+stow --target="$HOME" applications eww fastfetch foot fuzzel gtk mako niri qt swayidle swaylock wallpaper xdg-desktop-portal yazi zellij
 install-app-themes
 install-icon-cursor-themes
 install-kvantum-theme
@@ -66,6 +71,10 @@ permit nopass _greeter as root cmd /usr/bin/reboot args
 permit nopass _greeter as root cmd /usr/bin/poweroff args
 ```
 
+The greeter installer copies the desktop Papirus and Catppuccin cursor themes
+to `/usr/local/share/icons`, where the `_greeter` user can access them. Run the
+user icon installer before reinstalling the greeter configuration.
+
 Restore the terminal greeter if the graphical greeter cannot start:
 
 ```sh
@@ -75,11 +84,31 @@ doas install -Dm644 greetd/etc/greetd/config.tuigreet.toml /etc/greetd/config.to
 Remove them without deleting repository files:
 
 ```sh
-stow --delete --target="$HOME" applications eww fastfetch foot fuzzel gtk mako niri qt swaylock wallpaper yazi zellij
+stow --delete --target="$HOME" applications eww fastfetch foot fuzzel gtk mako niri qt swayidle swaylock wallpaper xdg-desktop-portal yazi zellij
 ```
 
 Existing files at the target paths must be moved or imported before Stow can
 create links.
+
+## Boot theme
+
+Install the pinned Catppuccin Mocha themes after installing Plymouth:
+
+```sh
+doas ./boot/install
+```
+
+The installer enables Plymouth in dracut, adds `quiet splash`, pins the GRUB
+default to kernel `6.18.45_2`, rebuilds every initramfs, and validates a newly
+generated GRUB configuration before activating it. Existing configuration is
+backed up once with the `.catppuccin-backup` suffix.
+
+Restore the previous GRUB configuration if needed:
+
+```sh
+doas cp /etc/default/grub.catppuccin-backup /etc/default/grub
+doas cp /boot/grub/grub.cfg.catppuccin-backup /boot/grub/grub.cfg
+```
 
 ## Application themes
 
@@ -92,6 +121,21 @@ Catppuccin cloud theme and requires confirming it once:
 ```sh
 Telegram -- 'tg://addtheme?slug=ctp_mocha'
 ```
+
+## Keyring
+
+Greetd already unlocks the GNOME Login keyring through PAM. If Chromium asks
+to unlock it after every login, install `seahorse`, open the `Login` keyring,
+and use **Change Password** to set it to the current Unix login password:
+
+```sh
+doas xbps-install seahorse
+seahorse
+```
+
+Log out after changing the password so PAM can verify automatic unlock on the
+next login. This keeps Chromium credentials encrypted; avoid
+`--password-store=basic` unless unencrypted storage is intentional.
 
 ## Connectivity
 
@@ -115,6 +159,7 @@ PIN or passkey need a separate interactive BlueZ agent.
 
 ```sh
 niri validate -c niri/.config/niri/config.kdl
+sh -n boot/install greetd/install swaylock/.local/bin/lock-screen
 foot --config=foot/.config/foot/foot.ini --check-config
 fuzzel --config=fuzzel/.config/fuzzel/fuzzel.ini --check-config
 zellij --config zellij/.config/zellij/config.kdl setup --check

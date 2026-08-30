@@ -10,9 +10,9 @@ XDG_SESSION_TYPE = "wayland"
 
 [GTK]
 application_prefer_dark_theme = true
-cursor_theme_name = "Adwaita"
+cursor_theme_name = "catppuccin-mocha-mauve-cursors"
 font_name = "JetBrainsMono Nerd Font Mono 14"
-icon_theme_name = "Adwaita"
+icon_theme_name = "Papirus-Dark"
 theme_name = "Adwaita"
 
 [commands]
