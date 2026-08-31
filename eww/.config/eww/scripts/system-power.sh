@@ -32,8 +32,7 @@ selection="$(
 
 case "$action" in
 suspend)
-  "$HOME/.local/bin/lock-screen" >/dev/null 2>&1 &
-  sleep 0.5
+  "$HOME/.local/bin/lock-screen" --daemonize
   exec doas -n /usr/bin/zzz
   ;;
 reboot)
