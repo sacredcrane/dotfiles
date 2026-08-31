@@ -1,0 +1,11 @@
+(include "../../../eww/.config/eww/widgets/system-monitor.yuck")
+
+(defwindow system-observatory
+  :geometry
+    (geometry
+      :width "900px"
+      :height "640px"
+      :anchor "center")
+  :windowtype "normal"
+  :wm-ignore false
+  (system-monitor))

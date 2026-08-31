@@ -661,3 +661,235 @@ calendar:indeterminate {
 .wifi-networks-scroll scrollbar slider:hover {
   background: $overlay0;
 }
+
+.system-monitor {
+  min-width: 820px;
+  min-height: 560px;
+  padding: 26px;
+  border: 1px solid rgba($surface2, 0.72);
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba($base, 0.97), rgba($mantle, 0.98));
+  box-shadow: 0 18px 60px rgba($crust, 0.7);
+}
+
+.monitor-header {
+  min-height: 58px;
+  padding: 0 4px 12px;
+  border-bottom: 1px solid rgba($surface1, 0.72);
+}
+
+.monitor-mark {
+  padding-left: 14px;
+  border-left: 3px solid $mauve;
+}
+
+.monitor-kicker {
+  color: $mauve;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.monitor-title {
+  margin-top: 4px;
+  color: $text;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.monitor-status {
+  margin-top: 3px;
+}
+
+.monitor-clock {
+  color: $subtext1;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.monitor-uptime {
+  margin-top: 5px;
+  color: $green;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.monitor-card {
+  min-width: 222px;
+  min-height: 94px;
+  padding: 15px;
+  border: 1px solid rgba($surface1, 0.78);
+  border-radius: 16px;
+  background: rgba($surface0, 0.46);
+}
+
+.monitor-card-head {
+  min-height: 25px;
+}
+
+.monitor-card-icon {
+  min-width: 26px;
+  margin-right: 8px;
+  color: $blue;
+  font-size: 18px;
+}
+
+.monitor-card-title {
+  color: $subtext0;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.monitor-card-value {
+  color: $text;
+  font-size: 19px;
+  font-weight: 900;
+}
+
+.monitor-card-detail {
+  margin: 9px 0 10px;
+  color: $overlay1;
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.monitor-progress trough {
+  min-height: 5px;
+  border-radius: 3px;
+  background: rgba($crust, 0.75);
+}
+
+.monitor-progress progress {
+  min-height: 5px;
+  border-radius: 3px;
+  background: $blue;
+}
+
+.monitor-card.cpu .monitor-card-icon {
+  color: $peach;
+}
+
+.monitor-card.cpu .monitor-progress progress {
+  background: $peach;
+}
+
+.monitor-card.ram .monitor-card-icon {
+  color: $mauve;
+}
+
+.monitor-card.ram .monitor-progress progress {
+  background: $mauve;
+}
+
+.monitor-card.disk .monitor-card-icon {
+  color: $green;
+}
+
+.monitor-card.disk .monitor-progress progress {
+  background: $green;
+}
+
+.monitor-card.amd .monitor-card-icon {
+  color: $red;
+}
+
+.monitor-card.amd .monitor-progress progress {
+  background: $red;
+}
+
+.monitor-card.nvidia .monitor-card-icon {
+  color: $teal;
+}
+
+.monitor-card.nvidia .monitor-progress progress {
+  background: $teal;
+}
+
+.process-panel {
+  padding: 12px 15px 10px;
+  border: 1px solid rgba($surface1, 0.78);
+  border-radius: 16px;
+  background: rgba($crust, 0.34);
+}
+
+.process-header {
+  min-height: 24px;
+  margin-bottom: 3px;
+  border-bottom: 1px solid rgba($surface0, 0.86);
+}
+
+.process-title {
+  color: $subtext0;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.process-column {
+  min-width: 62px;
+  color: $overlay0;
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.process-row {
+  min-height: 25px;
+  color: $subtext1;
+}
+
+.process-rank {
+  min-width: 22px;
+  color: $mauve;
+  font-size: 7px;
+}
+
+.process-name {
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.process-cpu,
+.process-mem {
+  min-width: 62px;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.process-cpu {
+  color: $peach;
+}
+
+.process-mem {
+  color: $mauve;
+}
+
+.monitor-footer {
+  min-height: 32px;
+  padding: 0 3px;
+}
+
+.monitor-hint {
+  color: $overlay0;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.monitor-btop {
+  min-height: 30px;
+  padding: 0 13px;
+  border: 1px solid rgba($mauve, 0.55);
+  border-radius: 10px;
+  color: $mauve;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.monitor-btop:hover {
+  background: $mauve;
+  color: $base;
+}

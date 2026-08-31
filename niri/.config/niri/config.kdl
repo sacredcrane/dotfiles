@@ -9,6 +9,10 @@ cursor {
     xcursor-size 24
 }
 
+workspace "sys" {
+    open-on-output "eDP-1"
+}
+
 input {
     keyboard {
         xkb {
@@ -47,16 +51,34 @@ spawn-at-startup "pipewire"
 spawn-at-startup "mako"
 spawn-at-startup "/usr/libexec/polkit-gnome-authentication-agent-1"
 spawn-sh-at-startup "eww daemon >/dev/null 2>&1; eww open sidebar"
+spawn-sh-at-startup "GDK_BACKEND=x11 eww --config \"$HOME/.config/eww-monitor\" open system-observatory >/dev/null 2>&1"
 spawn-sh-at-startup "$HOME/.local/bin/start-swayidle"
 
 spawn-at-startup "swww-daemon"
 spawn-sh-at-startup "sleep 1; swww img \"$HOME/.local/share/wallpapers/village.png\" --resize crop"
+spawn-sh-at-startup "sleep 1; niri msg action focus-workspace 2"
 
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
 window-rule {
     geometry-corner-radius 16
     clip-to-geometry true
+}
+
+window-rule {
+    match app-id=r#"^Eww$"# title=r#"^Eww - system-observatory$"#
+    open-on-workspace "sys"
+    open-floating true
+    open-focused false
+    default-column-width { fixed 900; }
+    default-window-height { fixed 640; }
+    focus-ring { off; }
+}
+
+window-rule {
+    match app-id=r#"^system-monitor-terminal$"#
+    open-on-workspace "sys"
+    default-column-width { proportion 0.66667; }
 }
 
 layer-rule {
@@ -157,7 +179,7 @@ binds {
     Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
     Mod+Ctrl+Shift+WheelScrollUp { move-column-left; }
 
-    Mod+1 { focus-workspace 1; }
+    Mod+1 { focus-workspace "sys"; }
     Mod+2 { focus-workspace 2; }
     Mod+3 { focus-workspace 3; }
     Mod+4 { focus-workspace 4; }
@@ -166,7 +188,7 @@ binds {
     Mod+7 { focus-workspace 7; }
     Mod+8 { focus-workspace 8; }
     Mod+9 { focus-workspace 9; }
-    Mod+Ctrl+1 { move-column-to-workspace 1; }
+    Mod+Ctrl+1 { move-column-to-workspace "sys"; }
     Mod+Ctrl+2 { move-column-to-workspace 2; }
     Mod+Ctrl+3 { move-column-to-workspace 3; }
     Mod+Ctrl+4 { move-column-to-workspace 4; }

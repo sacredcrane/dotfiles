@@ -1,0 +1,126 @@
+(defpoll monitor-clock
+  :interval "30s"
+  :initial "SYSTEM // LIVE"
+  "date '+%a %d %b  %H:%M'")
+
+(defpoll system-monitor-data
+  :interval "2s"
+  :initial '{"uptime":"--","cpu":{"usage":0,"temp":0,"load1":"0","load5":"0"},"ram":{"usage":0,"used":0,"total":0},"disk":{"usage":0,"used":0,"total":0,"temp":0},"amd":{"available":false,"usage":0,"vram_used":0,"vram_total":0,"temp":0},"nvidia":{"available":false,"name":"NVIDIA","usage":0,"vram_used":0,"vram_total":0,"temp":0,"power":"0"},"processes":[]}'
+  "$HOME/.config/eww/scripts/system-monitor.sh")
+
+(defwidget monitor-card [accent icon title value detail usage]
+  (box
+    :class "monitor-card ${accent}"
+    :orientation "v"
+    :space-evenly false
+    (box
+      :class "monitor-card-head"
+      :space-evenly false
+      (label :class "monitor-card-icon" :text icon)
+      (label :class "monitor-card-title" :text title :hexpand true :halign "start")
+      (label :class "monitor-card-value" :text value))
+    (label :class "monitor-card-detail" :text detail :halign "start")
+    (progress :class "monitor-progress" :value usage)))
+
+(defwidget process-row [rank name cpu mem]
+  (box
+    :class "process-row"
+    :space-evenly false
+    (label :class "process-rank" :text rank)
+    (label :class "process-name" :text name :limit-width 24 :hexpand true :halign "start")
+    (label :class "process-cpu" :text "${cpu}%")
+    (label :class "process-mem" :text "${mem}%")))
+
+(defwidget system-monitor []
+  (box
+    :class "system-monitor"
+    :orientation "v"
+    :space-evenly false
+    :spacing 14
+    (box
+      :class "monitor-header"
+      :space-evenly false
+      (box
+        :class "monitor-mark"
+        :orientation "v"
+        :space-evenly false
+        (label :class "monitor-kicker" :text "WORKSPACE 01")
+        (label :class "monitor-title" :text "SYSTEM OBSERVATORY"))
+      (box :hexpand true)
+      (box
+        :class "monitor-status"
+        :orientation "v"
+        :space-evenly false
+        (label :class "monitor-clock" :text monitor-clock :halign "end")
+        (label :class "monitor-uptime" :text "UP ${system-monitor-data.uptime}" :halign "end")))
+
+    (box
+      :class "monitor-grid"
+      :space-evenly true
+      :spacing 12
+      (monitor-card
+        :accent "cpu"
+        :icon "󰻠"
+        :title "CPU"
+        :value "${system-monitor-data.cpu.usage}%"
+        :detail "${system-monitor-data.cpu.temp}°C  ·  LOAD ${system-monitor-data.cpu.load1}"
+        :usage {system-monitor-data.cpu.usage})
+      (monitor-card
+        :accent "ram"
+        :icon "󰍛"
+        :title "MEMORY"
+        :value "${system-monitor-data.ram.usage}%"
+        :detail "${round(system-monitor-data.ram.used / 1024, 1)} / ${round(system-monitor-data.ram.total / 1024, 1)} GiB"
+        :usage {system-monitor-data.ram.usage})
+      (monitor-card
+        :accent "disk"
+        :icon "󰋊"
+        :title "ROOT"
+        :value "${system-monitor-data.disk.usage}%"
+        :detail "${round(system-monitor-data.disk.used / 1024, 1)} / ${round(system-monitor-data.disk.total / 1024, 1)} GiB  ·  ${system-monitor-data.disk.temp}°C"
+        :usage {system-monitor-data.disk.usage}))
+
+    (box
+      :class "gpu-row"
+      :space-evenly true
+      :spacing 12
+      (monitor-card
+        :accent "amd"
+        :icon "󰢮"
+        :title "RADEON iGPU"
+        :value "${system-monitor-data.amd.usage}%"
+        :detail "${system-monitor-data.amd.temp}°C  ·  VRAM ${system-monitor-data.amd.vram_used}/${system-monitor-data.amd.vram_total} MiB"
+        :usage {system-monitor-data.amd.usage})
+      (monitor-card
+        :accent "nvidia"
+        :icon "󰢮"
+        :title "GTX 1650"
+        :value "${system-monitor-data.nvidia.usage}%"
+        :detail "${system-monitor-data.nvidia.temp}°C  ·  ${system-monitor-data.nvidia.power} W  ·  ${system-monitor-data.nvidia.vram_used}/${system-monitor-data.nvidia.vram_total} MiB"
+        :usage {system-monitor-data.nvidia.usage}))
+
+    (box
+      :class "process-panel"
+      :orientation "v"
+      :space-evenly false
+      (box
+        :class "process-header"
+        :space-evenly false
+        (label :class "process-title" :text "HOT PROCESSES" :hexpand true :halign "start")
+        (label :class "process-column" :text "CPU")
+        (label :class "process-column" :text "MEM"))
+      (for process in {system-monitor-data.processes}
+        (process-row
+          :rank "●"
+          :name {process.name}
+          :cpu {process.cpu}
+          :mem {process.mem})))
+
+    (box
+      :class "monitor-footer"
+      :space-evenly false
+      (label :class "monitor-hint" :text "LIVE SAMPLE 2.0s  ·  /PROC + NVML" :hexpand true :halign "start")
+      (button
+        :class "monitor-btop"
+        :onclick "foot --app-id=system-monitor-terminal btop"
+        "OPEN BTOP  󰆍"))))
