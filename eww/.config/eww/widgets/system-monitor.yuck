@@ -4,7 +4,7 @@
   "date '+%a %d %b  %H:%M'")
 
 (defpoll system-monitor-data
-  :interval "2s"
+  :interval "10s"
   :initial '{"uptime":"--","cpu":{"usage":0,"temp":0,"load1":"0","load5":"0"},"ram":{"usage":0,"used":0,"total":0},"disk":{"usage":0,"used":0,"total":0,"temp":0},"amd":{"available":false,"usage":0,"vram_used":0,"vram_total":0,"temp":0},"nvidia":{"available":false,"name":"NVIDIA","usage":0,"vram_used":0,"vram_total":0,"temp":0,"power":"0"},"processes":[]}'
   "$HOME/.config/eww/scripts/system-monitor.sh")
 
