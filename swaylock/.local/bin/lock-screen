@@ -1,7 +1,6 @@
 #!/bin/sh
 
 exec swaylock \
-  --color 1e1e2e \
   --image "$HOME/.local/share/wallpapers/village.png" \
   --scaling fill \
   "$@"
