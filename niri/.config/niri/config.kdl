@@ -49,6 +49,7 @@ layout {
 
 spawn-at-startup "pipewire"
 spawn-at-startup "mako"
+spawn-at-startup "gnome-keyring-daemon" "--start" "--components=secrets"
 spawn-at-startup "/usr/libexec/polkit-gnome-authentication-agent-1"
 spawn-sh-at-startup "eww daemon >/dev/null 2>&1; eww open sidebar"
 spawn-sh-at-startup "GDK_BACKEND=x11 eww --config \"$HOME/.config/eww-monitor\" open system-observatory >/dev/null 2>&1"
