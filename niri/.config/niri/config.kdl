@@ -1,4 +1,6 @@
 environment {
+    PATH "/home/sacredcrane/.local/bin:/home/sacredcrane/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    GOBIN "/home/sacredcrane/.local/bin"
     QT_STYLE_OVERRIDE "kvantum"
     XCURSOR_THEME "catppuccin-mocha-mauve-cursors"
     XCURSOR_SIZE "24"
