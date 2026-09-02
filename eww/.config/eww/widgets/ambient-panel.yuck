@@ -33,6 +33,7 @@
       :orientation "v"
       :space-evenly false
       :hexpand true
+      :valign "center"
       (label :class "ambient-stat-label" :halign "start" :text label)
       (label :class "ambient-stat-value" :halign "start" :text value)
       (label :class "ambient-stat-detail" :halign "start" :text detail))))
@@ -56,8 +57,8 @@
           :space-evenly false
           :halign "start"
           :valign "end"
-          (label :class "ambient-clock" :text {ambient-time.clock})
-          (label :class "ambient-seconds" :text {ambient-time.seconds}))
+          (label :class "ambient-clock" :valign "baseline" :text {ambient-time.clock})
+          (label :class "ambient-seconds" :valign "baseline" :text {ambient-time.seconds}))
         (label :class "ambient-date" :halign "start" :text ambient-date))
       (box
         :class "ambient-live"
