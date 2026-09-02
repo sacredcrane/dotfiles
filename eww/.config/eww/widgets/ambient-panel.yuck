@@ -1,0 +1,110 @@
+(defpoll ambient-time
+  :interval "1s"
+  :initial '{"clock":"--:--","seconds":"--"}'
+  "date '+{\"clock\":\"%H:%M\",\"seconds\":\"%S\"}'")
+
+(defpoll ambient-date
+  :interval "60s"
+  "date '+%A, %d %B  ·  %Y'")
+
+(defpoll ambient-calendar
+  :interval "1h"
+  "cal -m")
+
+(defpoll ambient-network
+  :interval "10s"
+  "$HOME/.config/eww/scripts/network-status.sh")
+
+(defpoll ambient-vpn
+  :interval "10s"
+  "$HOME/.config/eww/scripts/vpn-status.sh")
+
+(defpoll ambient-host
+  :interval "60s"
+  "printf '%s  ·  %s' \"$(hostname)\" \"$(uname -r)\"")
+
+(defwidget ambient-stat [icon label value detail accent]
+  (box
+    :class "ambient-stat ${accent}"
+    :space-evenly false
+    :spacing 12
+    (label :class "ambient-stat-icon" :valign "center" :text icon)
+    (box
+      :orientation "v"
+      :space-evenly false
+      :hexpand true
+      (label :class "ambient-stat-label" :halign "start" :text label)
+      (label :class "ambient-stat-value" :halign "start" :text value)
+      (label :class "ambient-stat-detail" :halign "start" :text detail))))
+
+(defwidget ambient-panel []
+  (box
+    :class "ambient-panel"
+    :orientation "v"
+    :space-evenly false
+    :spacing 12
+
+    (box
+      :class "ambient-hero"
+      :space-evenly false
+      (box
+        :orientation "v"
+        :space-evenly false
+        :hexpand true
+        (label :class "ambient-kicker" :halign "start" :text "LOCAL SESSION")
+        (box
+          :space-evenly false
+          :halign "start"
+          :valign "end"
+          (label :class "ambient-clock" :text {ambient-time.clock})
+          (label :class "ambient-seconds" :text {ambient-time.seconds}))
+        (label :class "ambient-date" :halign "start" :text ambient-date))
+      (box
+        :class "ambient-live"
+        :orientation "v"
+        :space-evenly false
+        :valign "center"
+        (label :class "ambient-live-dot" :text "●")
+        (label :class "ambient-live-label" :text "SESSION ACTIVE")))
+
+    (box
+      :class "ambient-body"
+      :space-evenly false
+      :spacing 12
+      :vexpand true
+
+      (box
+        :class "ambient-card ambient-calendar-card"
+        :orientation "v"
+        :space-evenly false
+        :hexpand true
+        (label :class "ambient-card-title" :halign "start" :text "CALENDAR")
+        (label :class "ambient-calendar" :halign "center" :valign "center" :vexpand true :text ambient-calendar))
+
+      (box
+        :class "ambient-status-stack"
+        :orientation "v"
+        :space-evenly true
+        :spacing 8
+        :hexpand true
+
+        (ambient-stat
+          :accent "network"
+          :icon "󰖩"
+          :label "NETWORK"
+          :value {ambient-network.wifi.connected ? ambient-network.wifi.ssid : "Offline"}
+          :detail {ambient-network.wifi.connected ? "${ambient-network.wifi.ip}  ·  ${ambient-network.wifi.signal} dBm" : "No wireless link"})
+
+        (ambient-stat
+          :accent "vpn"
+          :icon "󰦝"
+          :label "PRIVATE ROUTE"
+          :value {ambient-vpn.active ? "VPN connected" : "VPN offline"}
+          :detail {ambient-vpn.active ? ambient-vpn.address : "Direct connection"})
+
+        (ambient-stat
+          :accent "session"
+          :icon "󰍹"
+          :label "HOST SESSION"
+          :value ambient-host
+          :detail "UP ${system-monitor-data.uptime}")))))

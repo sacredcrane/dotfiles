@@ -33,8 +33,8 @@ Install the base tools:
 
 ```sh
 doas xbps-install -S stow eww niri foot yazi fastfetch jq gawk iw wpa_supplicant \
-  curl unzip brightnessctl pipewire wireplumber mako fuzzel swayidle swaylock btop \
-  bluez libnotify zellij kvantum greetd ReGreet cage tuigreet polkit-gnome \
+  curl unzip brightnessctl pipewire wireplumber mako fuzzel swayidle swaylock btop cava \
+  bluez libnotify playerctl zellij kvantum greetd ReGreet cage tuigreet polkit-gnome \
   gnome-keyring xdg-desktop-portal xdg-desktop-portal-gtk \
   xdg-desktop-portal-gnome plymouth plymouth-data
 ```
@@ -45,7 +45,7 @@ family name `JetBrainsMono Nerd Font Mono`.
 From the repository root, create the configuration links:
 
 ```sh
-stow --target="$HOME" applications eww eww-monitor fastfetch foot fuzzel gtk mako niri qt swayidle swaylock wallpaper xdg-desktop-portal yazi zellij
+stow --target="$HOME" applications btop cava eww eww-monitor fastfetch foot fuzzel gtk mako niri qt swayidle swaylock wallpaper xdg-desktop-portal yazi zellij
 install-app-themes
 install-icon-cursor-themes
 install-kvantum-theme
@@ -57,9 +57,11 @@ The icon installer combines Papirus with the official Catppuccin Mocha Mauve
 folder overlay and installs the matching Catppuccin cursor theme.
 
 Workspace 1 is reserved for the Eww System Observatory. It samples CPU, RAM,
-disk, AMD and NVIDIA GPU state, temperatures, and hot processes every two
+disk, AMD and NVIDIA GPU state, temperatures, and hot processes every ten
 seconds. Niri starts normal work on workspace 2; the dashboard's `OPEN BTOP`
-button opens a full terminal monitor back on workspace 1.
+button opens a fullscreen Catppuccin-themed terminal monitor on workspace 1.
+An MPRIS media panel and Catppuccin Cava visualizer fill the dashboard's lower
+rows; the visualizer sleeps when the output is idle.
 
 Install the root-owned login manager configuration and greeter background
 separately:
@@ -90,7 +92,7 @@ doas install -Dm644 greetd/etc/greetd/config.tuigreet.toml /etc/greetd/config.to
 Remove them without deleting repository files:
 
 ```sh
-stow --delete --target="$HOME" applications eww eww-monitor fastfetch foot fuzzel gtk mako niri qt swayidle swaylock wallpaper xdg-desktop-portal yazi zellij
+stow --delete --target="$HOME" applications btop cava eww eww-monitor fastfetch foot fuzzel gtk mako niri qt swayidle swaylock wallpaper xdg-desktop-portal yazi zellij
 ```
 
 Existing files at the target paths must be moved or imported before Stow can

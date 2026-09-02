@@ -1,11 +1,33 @@
 (include "../../../eww/.config/eww/widgets/system-monitor.yuck")
+(include "../../../eww/.config/eww/widgets/media-center.yuck")
+(include "../../../eww/.config/eww/widgets/ambient-panel.yuck")
 
 (defwindow system-observatory
   :geometry
     (geometry
-      :width "900px"
-      :height "640px"
+      :width "780px"
+      :height "540px"
       :anchor "center")
   :windowtype "normal"
   :wm-ignore false
   (system-monitor))
+
+(defwindow media-panel
+  :geometry
+    (geometry
+      :width "1576px"
+      :height "180px"
+      :anchor "center")
+  :windowtype "normal"
+  :wm-ignore false
+  (media-center))
+
+(defwindow ambient-dashboard
+  :geometry
+    (geometry
+      :width "780px"
+      :height "540px"
+      :anchor "center")
+  :windowtype "normal"
+  :wm-ignore false
+  (ambient-panel))

@@ -1,0 +1,54 @@
+(defpoll media-data
+  :interval "2s"
+  :initial '{"active":false,"playing":false,"title":"NO ACTIVE PLAYER","artist":"Start playback to wake the dashboard","album":"","elapsed":"0:00","duration":"0:00","progress":0}'
+  "$HOME/.config/eww/scripts/media-status.sh")
+
+(defwidget media-center []
+  (box
+    :class {media-data.playing ? "media-center playing" : "media-center"}
+    :space-evenly false
+    :spacing 16
+
+    (box
+      :class "media-emblem"
+      (label :text {media-data.playing ? "󰎆" : "󰝛"}))
+
+    (box
+      :class "media-copy"
+      :orientation "v"
+      :space-evenly false
+      :hexpand true
+
+      (label
+        :class "media-kicker"
+        :halign "start"
+        :text {media-data.playing ? "NOW PLAYING" : "MEDIA STANDBY"})
+      (label
+        :class "media-title"
+        :halign "start"
+        :limit-width 42
+        :text {media-data.title})
+      (label
+        :class "media-artist"
+        :halign "start"
+        :limit-width 54
+        :text {media-data.album == "" ? media-data.artist : "${media-data.artist}  ·  ${media-data.album}"})
+
+      (box
+        :class "media-progress-row"
+        :space-evenly false
+        (label :class "media-time" :text {media-data.elapsed})
+        (progress :class "media-progress" :hexpand true :value {media-data.progress})
+        (label :class "media-time" :text {media-data.duration})))
+
+    (box
+      :class "media-controls"
+      :space-evenly false
+      :spacing 6
+      :valign "center"
+      (button :onclick "playerctl previous >/dev/null 2>&1" "󰒮")
+      (button
+        :class "media-play"
+        :onclick "playerctl play-pause >/dev/null 2>&1"
+        (label :text {media-data.playing ? "󰏤" : "󰐊"}))
+      (button :onclick "playerctl next >/dev/null 2>&1" "󰒭"))))

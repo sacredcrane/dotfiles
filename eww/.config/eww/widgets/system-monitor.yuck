@@ -17,7 +17,8 @@
       :class "monitor-card-head"
       :space-evenly false
       (label :class "monitor-card-icon" :text icon)
-      (label :class "monitor-card-title" :text title :hexpand true :halign "start")
+      (label :class "monitor-card-title" :text title :halign "start")
+      (box :hexpand true)
       (label :class "monitor-card-value" :text value))
     (label :class "monitor-card-detail" :text detail :halign "start")
     (progress :class "monitor-progress" :value usage)))
@@ -36,7 +37,7 @@
     :class "system-monitor"
     :orientation "v"
     :space-evenly false
-    :spacing 14
+    :spacing 10
     (box
       :class "monitor-header"
       :space-evenly false
@@ -106,7 +107,8 @@
       (box
         :class "process-header"
         :space-evenly false
-        (label :class "process-title" :text "HOT PROCESSES" :hexpand true :halign "start")
+        (label :class "process-title" :text "HOT PROCESSES" :halign "start")
+        (box :hexpand true)
         (label :class "process-column" :text "CPU")
         (label :class "process-column" :text "MEM"))
       (for process in {system-monitor-data.processes}
@@ -119,7 +121,8 @@
     (box
       :class "monitor-footer"
       :space-evenly false
-      (label :class "monitor-hint" :text "LIVE SAMPLE 2.0s  ·  /PROC + NVML" :hexpand true :halign "start")
+      (label :class "monitor-hint" :text "10S POLL  ·  /PROC + NVML" :halign "start")
+      (box :hexpand true)
       (button
         :class "monitor-btop"
         :onclick "foot --app-id=system-monitor-terminal btop"

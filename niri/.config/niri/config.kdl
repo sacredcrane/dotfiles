@@ -54,7 +54,8 @@ spawn-at-startup "mako"
 spawn-at-startup "gnome-keyring-daemon" "--start" "--components=secrets"
 spawn-at-startup "/usr/libexec/polkit-gnome-authentication-agent-1"
 spawn-sh-at-startup "eww daemon >/dev/null 2>&1; eww open sidebar"
-spawn-sh-at-startup "GDK_BACKEND=x11 eww --config \"$HOME/.config/eww-monitor\" open system-observatory >/dev/null 2>&1"
+spawn-sh-at-startup "GDK_BACKEND=x11 eww --config \"$HOME/.config/eww-monitor\" open-many system-observatory media-panel ambient-dashboard >/dev/null 2>&1"
+spawn-sh-at-startup "command -v cava >/dev/null && exec foot --app-id=system-audio-visualizer --override=colors.alpha=0.92 --override=main.pad=18x18 cava"
 spawn-sh-at-startup "$HOME/.local/bin/start-swayidle"
 
 spawn-at-startup "swww-daemon"
@@ -73,15 +74,56 @@ window-rule {
     open-on-workspace "sys"
     open-floating true
     open-focused false
-    default-column-width { fixed 900; }
-    default-window-height { fixed 640; }
+    default-column-width { fixed 780; }
+    default-window-height { fixed 540; }
+    default-floating-position x=142 y=16 relative-to="top-left"
     focus-ring { off; }
 }
 
 window-rule {
     match app-id=r#"^system-monitor-terminal$"#
     open-on-workspace "sys"
-    default-column-width { proportion 0.66667; }
+    open-fullscreen true
+}
+
+window-rule {
+    match app-id=r#"^system-audio-visualizer$"#
+    open-on-workspace "sys"
+    open-floating true
+    open-focused false
+    default-column-width { fixed 1576; }
+    default-window-height { fixed 294; }
+    default-floating-position x=142 y=16 relative-to="bottom-left"
+    tiled-state true
+    focus-ring { off; }
+    border {
+        on
+        width 1
+        active-color "#cba6f7"
+        inactive-color "#585b70"
+    }
+}
+
+window-rule {
+    match app-id=r#"^Eww$"# title=r#"^Eww - media-panel$"#
+    open-on-workspace "sys"
+    open-floating true
+    open-focused false
+    default-column-width { fixed 1576; }
+    default-window-height { fixed 180; }
+    default-floating-position x=142 y=574 relative-to="top-left"
+    focus-ring { off; }
+}
+
+window-rule {
+    match app-id=r#"^Eww$"# title=r#"^Eww - ambient-dashboard$"#
+    open-on-workspace "sys"
+    open-floating true
+    open-focused false
+    default-column-width { fixed 780; }
+    default-window-height { fixed 540; }
+    default-floating-position x=142 y=16 relative-to="top-right"
+    focus-ring { off; }
 }
 
 layer-rule {

@@ -663,23 +663,23 @@ calendar:indeterminate {
 }
 
 .system-monitor {
-  min-width: 820px;
-  min-height: 560px;
-  padding: 26px;
+  min-width: 700px;
+  min-height: 480px;
+  padding: 20px;
   border: 1px solid rgba($surface2, 0.72);
-  border-radius: 24px;
+  border-radius: 20px;
   background: linear-gradient(145deg, rgba($base, 0.97), rgba($mantle, 0.98));
   box-shadow: 0 18px 60px rgba($crust, 0.7);
 }
 
 .monitor-header {
-  min-height: 58px;
-  padding: 0 4px 12px;
+  min-height: 50px;
+  padding: 0 3px 10px;
   border-bottom: 1px solid rgba($surface1, 0.72);
 }
 
 .monitor-mark {
-  padding-left: 14px;
+  padding-left: 11px;
   border-left: 3px solid $mauve;
 }
 
@@ -687,15 +687,13 @@ calendar:indeterminate {
   color: $mauve;
   font-size: 9px;
   font-weight: 800;
-  letter-spacing: 2px;
 }
 
 .monitor-title {
-  margin-top: 4px;
+  margin-top: 3px;
   color: $text;
-  font-size: 22px;
+  font-size: 19px;
   font-weight: 900;
-  letter-spacing: 1px;
 }
 
 .monitor-status {
@@ -713,44 +711,42 @@ calendar:indeterminate {
   color: $green;
   font-size: 9px;
   font-weight: 800;
-  letter-spacing: 1px;
 }
 
 .monitor-card {
-  min-width: 222px;
-  min-height: 94px;
-  padding: 15px;
+  min-width: 176px;
+  min-height: 78px;
+  padding: 12px;
   border: 1px solid rgba($surface1, 0.78);
   border-radius: 16px;
   background: rgba($surface0, 0.46);
 }
 
 .monitor-card-head {
-  min-height: 25px;
+  min-height: 22px;
 }
 
 .monitor-card-icon {
-  min-width: 26px;
-  margin-right: 8px;
+  min-width: 22px;
+  margin-right: 6px;
   color: $blue;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .monitor-card-title {
   color: $subtext0;
   font-size: 9px;
   font-weight: 800;
-  letter-spacing: 1px;
 }
 
 .monitor-card-value {
   color: $text;
-  font-size: 19px;
+  font-size: 17px;
   font-weight: 900;
 }
 
 .monitor-card-detail {
-  margin: 9px 0 10px;
+  margin: 7px 0 8px;
   color: $overlay1;
   font-size: 9px;
   font-weight: 600;
@@ -809,14 +805,14 @@ calendar:indeterminate {
 }
 
 .process-panel {
-  padding: 12px 15px 10px;
+  padding: 10px 12px 8px;
   border: 1px solid rgba($surface1, 0.78);
   border-radius: 16px;
   background: rgba($crust, 0.34);
 }
 
 .process-header {
-  min-height: 24px;
+  min-height: 22px;
   margin-bottom: 3px;
   border-bottom: 1px solid rgba($surface0, 0.86);
 }
@@ -825,18 +821,17 @@ calendar:indeterminate {
   color: $subtext0;
   font-size: 9px;
   font-weight: 800;
-  letter-spacing: 1px;
 }
 
 .process-column {
-  min-width: 62px;
+  min-width: 54px;
   color: $overlay0;
   font-size: 8px;
   font-weight: 800;
 }
 
 .process-row {
-  min-height: 25px;
+  min-height: 22px;
   color: $subtext1;
 }
 
@@ -853,7 +848,7 @@ calendar:indeterminate {
 
 .process-cpu,
 .process-mem {
-  min-width: 62px;
+  min-width: 54px;
   font-size: 9px;
   font-weight: 700;
 }
@@ -867,7 +862,7 @@ calendar:indeterminate {
 }
 
 .monitor-footer {
-  min-height: 32px;
+  min-height: 28px;
   padding: 0 3px;
 }
 
@@ -875,21 +870,247 @@ calendar:indeterminate {
   color: $overlay0;
   font-size: 8px;
   font-weight: 700;
-  letter-spacing: 1px;
 }
 
 .monitor-btop {
-  min-height: 30px;
-  padding: 0 13px;
+  min-height: 28px;
+  padding: 0 11px;
   border: 1px solid rgba($mauve, 0.55);
   border-radius: 10px;
   color: $mauve;
   font-size: 9px;
   font-weight: 800;
-  letter-spacing: 1px;
 }
 
 .monitor-btop:hover {
   background: $mauve;
   color: $base;
+}
+
+.media-center {
+  min-width: 1528px;
+  min-height: 132px;
+  padding: 20px 22px;
+  border: 1px solid rgba($surface2, 0.72);
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba($base, 0.98), rgba($mantle, 0.96));
+  box-shadow: 0 14px 42px rgba($crust, 0.62);
+}
+
+.media-emblem {
+  min-width: 90px;
+  min-height: 90px;
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgba($blue, 0.3), rgba($mauve, 0.34), rgba($pink, 0.26));
+  color: $lavender;
+  font-size: 38px;
+}
+
+.media-center.playing .media-emblem {
+  color: $pink;
+}
+
+.media-copy {
+  margin: 2px 0;
+}
+
+.media-kicker {
+  color: $mauve;
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.media-title {
+  margin-top: 5px;
+  color: $text;
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.media-artist {
+  margin-top: 3px;
+  color: $subtext0;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.media-progress-row {
+  margin-top: 14px;
+}
+
+.media-progress trough {
+  min-height: 4px;
+  margin: 0 10px;
+  border-radius: 2px;
+  background: rgba($crust, 0.8);
+}
+
+.media-progress progress {
+  min-height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, $blue, $mauve, $pink);
+}
+
+.media-time {
+  min-width: 34px;
+  color: $overlay1;
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.media-controls button {
+  min-width: 34px;
+  min-height: 34px;
+  border-radius: 17px;
+  color: $subtext1;
+  font-size: 17px;
+}
+
+.media-controls button:hover {
+  background: rgba($surface1, 0.72);
+  color: $text;
+}
+
+.media-controls .media-play {
+  min-width: 42px;
+  min-height: 42px;
+  border-radius: 21px;
+  background: $mauve;
+  color: $base;
+}
+
+.media-controls .media-play:hover {
+  background: $pink;
+  color: $base;
+}
+
+.ambient-panel {
+  min-width: 738px;
+  min-height: 498px;
+  padding: 20px;
+  border: 1px solid rgba($surface2, 0.62);
+  border-radius: 22px;
+  background: linear-gradient(145deg, rgba($base, 0.94), rgba($mantle, 0.9));
+  box-shadow: 0 18px 60px rgba($crust, 0.64);
+}
+
+.ambient-hero {
+  min-height: 112px;
+  padding: 16px 20px;
+  border-radius: 18px;
+  background: linear-gradient(125deg, rgba($surface0, 0.56), rgba($mauve, 0.09));
+}
+
+.ambient-kicker,
+.ambient-card-title,
+.ambient-stat-label {
+  color: $mauve;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.ambient-clock {
+  color: $text;
+  font-size: 58px;
+  font-weight: 900;
+}
+
+.ambient-seconds {
+  margin: 0 0 11px 8px;
+  color: $pink;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.ambient-date {
+  color: $subtext0;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ambient-live {
+  min-width: 108px;
+  min-height: 48px;
+  border: 1px solid rgba($green, 0.32);
+  border-radius: 14px;
+  background: rgba($green, 0.08);
+}
+
+.ambient-live-dot {
+  color: $green;
+  font-size: 9px;
+}
+
+.ambient-live-label {
+  margin-top: 4px;
+  color: $subtext0;
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.ambient-card {
+  padding: 14px;
+  border: 1px solid rgba($surface1, 0.72);
+  border-radius: 18px;
+  background: rgba($crust, 0.32);
+}
+
+.ambient-calendar-card {
+  min-width: 320px;
+}
+
+.ambient-calendar {
+  color: $subtext1;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.ambient-status-stack {
+  min-width: 320px;
+}
+
+.ambient-stat {
+  min-height: 50px;
+  padding: 8px 10px;
+  border: 1px solid rgba($surface1, 0.68);
+  border-radius: 16px;
+  background: rgba($surface0, 0.38);
+}
+
+.ambient-stat-icon {
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 12px;
+  background: rgba($mauve, 0.14);
+  color: $mauve;
+  font-size: 19px;
+}
+
+.ambient-stat.network .ambient-stat-icon {
+  background: rgba($blue, 0.14);
+  color: $blue;
+}
+
+.ambient-stat.vpn .ambient-stat-icon {
+  background: rgba($green, 0.14);
+  color: $green;
+}
+
+.ambient-stat.session .ambient-stat-icon {
+  background: rgba($peach, 0.14);
+  color: $peach;
+}
+
+.ambient-stat-value {
+  margin-top: 3px;
+  color: $text;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.ambient-stat-detail {
+  margin-top: 2px;
+  color: $overlay1;
+  font-size: 9px;
+  font-weight: 600;
 }
