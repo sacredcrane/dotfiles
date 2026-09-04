@@ -70,6 +70,28 @@ window-rule {
 }
 
 window-rule {
+    match app-id=r#"^code$"#
+    open-maximized true
+    open-maximized-to-edges false
+    opacity 0.96
+}
+
+window-rule {
+    match app-id=r#"^foot$"#
+    tiled-state true
+}
+
+window-rule {
+    match app-id=r#"^steam$"# title=r#"^notificationtoasts_\d+_desktop$"#
+    open-floating true
+    open-focused false
+    default-floating-position x=16 y=16 relative-to="bottom-right"
+    geometry-corner-radius 14
+    clip-to-geometry true
+    focus-ring { off; }
+}
+
+window-rule {
     match app-id=r#"^Eww$"# title=r#"^Eww - system-observatory$"#
     open-on-workspace "sys"
     open-floating true
@@ -155,8 +177,8 @@ binds {
     Mod+Q repeat=false { close-window; }
 
     Mod+Left { focus-column-left; }
-    Mod+Down { focus-window-down; }
-    Mod+Up { focus-window-up; }
+    Mod+Down { focus-workspace-down; }
+    Mod+Up { focus-workspace-up; }
     Mod+Right { focus-column-right; }
     Mod+H { focus-column-left; }
     Mod+J { focus-window-down; }
