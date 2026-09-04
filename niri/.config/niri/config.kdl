@@ -55,7 +55,7 @@ spawn-at-startup "gnome-keyring-daemon" "--start" "--components=secrets"
 spawn-at-startup "/usr/libexec/polkit-gnome-authentication-agent-1"
 spawn-sh-at-startup "eww daemon >/dev/null 2>&1; eww open sidebar"
 spawn-sh-at-startup "GDK_BACKEND=x11 eww --config \"$HOME/.config/eww-monitor\" open-many system-observatory media-panel ambient-dashboard >/dev/null 2>&1"
-spawn-sh-at-startup "command -v cava >/dev/null && exec foot --app-id=system-audio-visualizer --override=colors.alpha=0.92 --override=main.pad=18x18 cava"
+spawn-sh-at-startup "$HOME/.local/bin/start-cava"
 spawn-sh-at-startup "$HOME/.local/bin/start-swayidle"
 
 spawn-at-startup "swww-daemon"

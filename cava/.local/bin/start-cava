@@ -1,0 +1,24 @@
+#!/bin/sh
+
+command -v cava >/dev/null 2>&1 || exit 0
+command -v foot >/dev/null 2>&1 || exit 0
+
+attempt=0
+while [ "$attempt" -lt 30 ]; do
+  sink="$(pactl get-default-sink 2>/dev/null)"
+
+  if pactl info >/dev/null 2>&1 && [ -n "$sink" ]; then
+    sleep 1
+    exec foot \
+      --app-id=system-audio-visualizer \
+      --override=colors.alpha=0.92 \
+      --override=main.pad=18x18 \
+      cava
+  fi
+
+  attempt=$((attempt + 1))
+  sleep 1
+done
+
+notify-send "Cava" "Audio server did not become ready" 2>/dev/null
+exit 1
